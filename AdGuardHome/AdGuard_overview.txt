@@ -1,0 +1,2450 @@
+Overview
+What is DNS?
+
+DNS stands for "Domain Name System", and its purpose is to convert website names into IP addresses. Each time you go to a website, your browser sends a DNS query to a DNS server to figure out the IP address of the website. And a regular DNS resolver simply returns the IP address of the requested domain.
+note
+
+The default DNS server is usually provided by your ISP. This means that your ISP can track your online activity and sell logs to third parties.
+
+Your device always uses a DNS server to obtain the IP addresses of the domains that are accessed by various apps, services, etc.
+
+There are also DNS servers that can block certain websites at DNS-level. How do they work? When your device sends a "bad" request, be it an ad or a tracker, a DNS server prevents the connection by responding with a non-routable IP address for a blocked domain.
+Why use DNS for content blocking
+
+Absolutely everything is connected to the Internet these days, from TV to smart light bulbs, from mobile devices to smart car. And where the Internet is, there are ads and trackers. In this case, a browser-based ad blocker has proven insufficient. To get a better protection, use DNS in combination with VPN and ad blocker.
+
+Using DNS for content blocking has some advantages as well as obvious flaws. On the one hand, DNS is in the loop for queries from all devices and their apps. But, on the other hand, DNS blocking alone cannot provide cosmetic filtering.
+What is AdGuard DNS?
+
+AdGuard DNS is one of the most privacy-oriented DNS services on the market. It supports such reliable encryption protocols as DNS-over-HTTPS, DNS-over-TLS, and DNS-over-QUIC. It can work as a regular DNS resolver in Non-filtering mode, but also it can provide DNS-level content blocking: identify requests to ad, tracking, and/or adult domains (optionally), and respond with an empty response. AdGuard has its own frequently updated database with names of domains that serve ads, trackers, and scam.
+
+An approximate scheme of how AdGuard DNS works
+
+About 75% of AdGuard DNS traffic is encrypted. This is actually what differentiates content-blocking DNS servers from others. If you take a look at CloudFlare or Quad9 stats, you’ll see that encrypted DNS is just a small share of all queries.
+
+AdGuard DNS exists in two main forms: Public AdGuard DNS and Private AdGuard DNS. None of these services require the installation of apps. They are easy to set up and use, and provide users with the minimum features necessary to block ads, trackers, malicious websites, and adult content (if required). There are no restrictions on what devices they can be used with.
+
+Despite so many similarities, private AdGuard DNS and public AdGuard DNS are two different products. Their main difference is that you can customize Private AdGuard DNS, while Public AdGuard DNS cannot.
+DNS filtering module in AdGuard products
+All major AdGuard products, including AdGuard VPN, have a DNS filtering module where you can select a DNS server by a provider you trust. Of course, AdGuard DNS Default, AdGuard DNS Non-filtering and AdGuard DNS Family Protection are on the list. Also, AdGuard apps allow users to easily configure and use AdGuard DNS — Public or Private.
+
+DNS filtering
+info
+
+The easiest way to explore the benefits of DNS filtering is to install AdGuard Ad Blocker or try AdGuard DNS. If you want to filter DNS at the network level, AdGuard Home is your tool
+
+Quick links: Download AdGuard Ad Blocker, Get AdGuard Home, Try AdGuard DNS
+
+To better understand DNS filtering, first, we should answer the question "What is DNS?".
+What is DNS?
+
+DNS stands for "Domain Name System", and its purpose is to translate websites' names into something browsers can understand, i.e. IP addresses. Thus, each time you go to a website, your browser sends a request to a special type of server (DNS server). That server looks at the requested domain name and replies with a corresponding IP address. Very schematically it can be represented like this:
+
+How DNS works
+
+The same applies, of course, to all apps and programs that send any web requests, not just browsers.
+How does DNS filtering work?
+
+When you use one of the AdGuard apps that supports DNS filtering, it acts as a buffer between your device and the DNS server. All DNS requests that your browsers or apps are about to send first get processed by AdGuard. If you're using the default DNS server provided by your ISP, your DNS traffic is likely not encrypted and vulnerable to snooping and hijacking. AdGuard will encrypt all your DNS requests before they leave your device, so that no malefactor could get access to their contents. On top of that, AdGuard can identify requests to ad, tracking, and/or adult domains and redirect them to a "blackhole" instead of forwarding them to the DNS server. More on that later.
+
+How DNS filtering works
+
+DNS filtering is a powerful tool and it's supported by all major AdGuard apps: AdGuard for Windows, AdGuard for Mac, AdGuard for Android and AdGuard for iOS.
+
+DNS filtering can be broken down into two separate functions: to encrypt and reroute DNS traffic to DNS servers, and to block some domains locally by applying DNS blocklists.
+DNS servers
+
+There are thousands of DNS servers to choose from, and they are all unique in their properties and purposes. Most simply return the IP address of the requested domain, but some have additional functions: they block ad, tracking, adult domains and so on. Nowadays all major DNS servers employ one or more reliable encryption protocols: DNS-over-HTTPS, DNS-over-TLS. AdGuard also provides a DNS service, and it was the world's first to offer the brand new and very promising DNS-over-QUIC encryption protocol. AdGuard has different servers for different goals. This diagram illustrates how AdGuard blocking servers work:
+
+AdGuard DNS
+
+Other DNS providers may work differently, so learn more about them before committing to this or that DNS server. You can find the list of some of the most popular DNS providers in this article. All AdGuard apps that support DNS functionality also have a list of DNS servers to choose from, or even allow to select any custom DNS server that you'd like.
+Local DNS blocklists
+
+But by relying on DNS servers only to filter your DNS traffic you lose all flexibility. If the selected server blocks a domain, you can't access it. With AdGuard, you don't even need to configure any specific DNS server to filter DNS traffic. All AdGuard products let you employ DNS blocklists, be it simple hosts files or lists that use more advanced syntax. They work similarly to regular blocklists: when a DNS request matches one of the rules in the active filter list, it gets blocked. To be more precise, the DNS server gives a non-routable IP address for such a request.
+tip
+
+In AdGuard for iOS, first you have to enable Advanced mode in Settings in order to get access to DNS blocking.
+
+You can add as many custom blocklists as you wish. For instance, you can use AdGuard DNS filter. It quite literally blocks everything that AdGuard DNS server does, but in this case you are free to use any other DNS server. Plus, this way you can add more filters or create custom exception rules, all of which would be impossible with a simple "use a blocking DNS server" setup.
+
+There are hundreds of different DNS blocklists, you can look for them here.
+DNS filtering vs. network filtering
+
+Network filtering is what we call the 'regular' way AdGuard standalone apps process network traffic, hence the name. Feel free to brush up on it by reading this article.
+
+First of all, we have to mention that with AdGuard you don't have to choose. You can always use both regular network filtering and DNS filtering at the same time. However, it's important to understand key differences between the two. DNS filtering has both its unique advantages and drawbacks:
+
+Pros of DNS filtering:
+
+    On some platforms, this is the only way to achieve system-wide filtering. For example, on iOS only the Safari browser supports content blocking in the familiar sense, for everything else there's only DNS filtering.
+    Some forms of tracking (like CNAME-cloaked tracking) can only be dealt with by DNS filtering.
+    The stage of processing a DNS request is the earliest you could possibly deal with an ad or a tracker, this helps save a little bit of battery life and traffic.
+
+Cons of DNS filtering:
+
+    DNS filtering is "coarse", which means it doesn't remove whitespace left behind a blocked ad or apply any sorts of cosmetic filtering. Many of the more complicated ads can't be blocked on DNS-level (or rather, they can, but only by blocking the entire domains which are being used for other purposes).
+
+    Example of difference An example of the difference between DNS filtering and network filtering
+
+    It's not possible to know the origin of a DNS request, which means you can't distinguish between different apps on the DNS-level. This impacts the statistics negatively and makes it impossible to create app-specific filtering rules.
+
+We recommend using DNS filtering in addition to network filtering, not instead of it, whenever possible.
+
+DNS filtering rules syntax
+info
+
+Here we show you how to write custom DNS filtering rules for use in AdGuard products
+
+Quick links: Download AdGuard Ad Blocker, Get AdGuard Home, Try AdGuard DNS
+Introduction
+
+You can use AdGuard DNS filtering rules syntax to make the rules more flexible, so they can block content according to your preferences. AdGuard DNS filtering rules syntax can be used in different AdGuard products such as AdGuard Home, AdGuard DNS, AdGuard for Windows/Mac/Android.
+
+There are three different approaches to writing hosts blocklists:
+
+    Adblock-style syntax: the modern approach to writing filtering rules based on using a subset of the Adblock-style rule syntax. This way blocklists are compatible with browser ad blockers.
+
+    /etc/hosts syntax: the old, tried-and-true approach that uses the same syntax that operating systems do for their hosts files.
+
+    Domains-only syntax: a simple list of domain names.
+
+If you are creating a blocklist, we recommend using the Adblock-style syntax. It has a couple of important advantages over the old-style syntax:
+
+    Blocklists size. Using pattern matching allows you to have a single rule instead of hundreds of /etc/hosts entries.
+
+    Compatibility. Your blocklist will be compatible with browser ad blockers, and it will be easier to share rules with a browser filter list.
+
+    Extensibility. In the past decade, the Adblock-style syntax has greatly evolved, and we see no reason not to extend it even further and offer additional features for network-level blockers.
+
+If you're maintaining either a /etc/hosts-style blocklist or multiple filtering lists (regardless of type), we provide a tool for blocklist compilation. We named it Hostlist compiler and we use it ourselves to create AdGuard DNS filter.
+Basic examples
+
+||example.org^: block access to the example.org domain and all its subdomains, like www.example.org.
+
+@@||example.org^: unblock access to the example.org domain and all its subdomains.
+
+1.2.3.4 example.org: (attention, old /etc/hosts-style syntax) in AdGuard Home, respond with 1.2.3.4 to queries for the example.org domain but not its subdomains. In Private AdGuard DNS, block access to example.org. www.example.org remains allowed.
+
+In AdGuard Home, using the unspecified IP address (0.0.0.0) or a local address (127.0.0.1 and alike) for a host is basically the same as blocking that host.
+
+# Returns the IP address 1.2.3.4 for example.org.
+1.2.3.4 example.org
+# Blocks example.org by responding with 0.0.0.0.
+0.0.0.0 example.org
+
+    example.org: a simple domain rule. Blocks the example.org domain but not its subdomains. www.example.org remains allowed.
+
+    ! Here goes a comment and # Also a comment: comments.
+
+    /REGEX/: block access to the domains matching the specified regular expression.
+
+Adblock-style syntax
+
+This is a subset of the traditional Adblock-style syntax which is used by browser ad blockers.
+
+     rule = ["@@"] pattern [ "$" modifiers ]
+modifiers = [modifier0, modifier1[, ...[, modifierN]]]
+
+    pattern: the hostname mask. Every hostname is matched against this mask. The pattern can also contain special characters, which are described below.
+
+    @@: the marker that is used in the exception rules. Start your rule with this marker if you want to turn off filtering for the matching hostnames.
+
+    modifiers: parameters that clarify the rule. They may limit the scope of the rule or even completely change the way it works.
+
+Special characters
+
+    *: the wildcard character. It is used to represent any set of characters. This can also be an empty string or a string of any length.
+
+    ||: matches the beginning of a hostname, including any subdomain. For instance, ||example.org matches example.org and test.example.org but not testexample.org.
+
+    ^: the separator character. Unlike browser ad blocking, there's nothing to separate in a hostname, so the only purpose of this character is to mark the end of the hostname.
+
+    |: a pointer to the beginning or the end of the hostname. The value depends on the character placement in the mask. For example, the rule ample.org| corresponds to example.org but not to example.org.com. |example corresponds to example.org but not to test.example.
+
+Regular expressions
+
+If you want even more flexibility in making rules, you can use regular expressions instead of the default simplified matching syntax. If you want to use a regular expression, the pattern has to look like this:
+
+pattern = "/" regexp "/"
+
+Examples:
+
+    /example.*/ will block hosts matching the example.* regexp.
+
+    @@/example.*/$important will unblock hosts matching the example.* regexp. Note that this rule also implies the important modifier.
+
+Comments
+
+Any line that starts with an exclamation mark or a hash sign is a comment and it will be ignored by the filtering engine. Comments are usually placed above rules and used to describe what a rule does.
+
+Example:
+
+! This is a comment.
+# This is also a comment.
+
+Rule modifiers
+
+You can change the behavior of a rule by adding modifiers. Modifiers must be located at the end of the rule after the $ character and be separated by commas.
+
+Examples:
+
+    ||example.org^$important
+
+||example.org^ is the matching pattern. $ is the delimiter, which signals that the rest of the rule are modifiers. important is the modifier.
+
+You may want to use multiple modifiers in a rule. In that case, separate them by commas:
+
+||example.org^$client=127.0.0.1,dnstype=A
+
+    ||example.org^ is the matching pattern. $ is the delimiter, which signals that the rest of the rule are modifiers. client=127.0.0.1 is the client modifier with its value, 127.0.0.1. , is the delimiter between modifiers. And finally, dnstype=A is the dnstype modifier with its value, A.
+
+NOTE: If a rule contains a modifier not listed in this document, the whole rule must be ignored. This way we avoid false-positives when people are trying to use unmodified browser ad blockers' filter lists like EasyList or EasyPrivacy.
+client
+
+The client modifier allows specifying clients this rule is applied to. There are two main ways to identify a client:
+
+    By their IP address or CIDR prefix. This way works for all kinds of clients.
+
+    By their name. This way only works for persistent clients (in AdGuard Home) and devices (in Private AdGuard DNS), which you have manually added.
+
+    NOTE: In AdGuard Home, ClientIDs are not currently supported, only names are. If you have added a client with the name “My Client” and ClientID my-client spell your modifier as $client='My Client' as opposed to $client=my-client.
+
+The syntax is:
+
+$client=value1|value2|...
+
+You can also exclude clients by adding a ~ character before the value. In this case, the rule is not be applied to this client's DNS requests.
+
+$client=~value1
+
+Client names usually contain spaces or other special characters, which is why you should enclose the name in quotes. Both single and double ASCII quotes are supported. Use the backslash (\) to escape quotes (" and '), commas (,), and pipes (|).
+
+NOTE: When excluding a client, you must place ~ outside the quotes.
+
+Examples:
+
+    @@||*^$client=127.0.0.1: unblock everything for localhost.
+
+    ||example.org^$client='Frank\'s laptop': block example.org for the client named Frank's laptop only. Note that quote (') in the name must be escaped.
+
+    ||example.org^$client=~'Mary\'s\, John\'s\, and Boris\'s laptops': block example.org for everyone except for the client named Mary's, John's, and Boris's laptops. Note that comma (,) must be escaped as well.
+
+    ||example.org^$client=~Mom|~Dad|Kids: block example.org for Kids, but not for Mom and Dad. This example demonstrates how to specify multiple clients in one rule.
+
+    ||example.org^$client=192.168.0.0/24: block example.org for all clients with IP addresses in the range from 192.168.0.0 to 192.168.0.255.
+
+denyallow
+
+You can use the denyallow modifier to exclude domains from the blocking rule. To add multiple domains to one rule, use the | character as a separator.
+
+The syntax is:
+
+$denyallow=domain1|domain2|...
+
+This modifier allows avoiding creating unnecessary exception rules when our blocking rule covers too many domains. You may want to block everything except for a couple of TLD domains. You could use the standard approach, i.e. rules like this:
+
+! Block everything.
+/.*/
+
+! Unblock a couple of TLDs.
+@@||com^
+@@||net^
+
+The problem with this approach is that this way you will also unblock tracking domains that are located on those TLDs (i.e. google-analytics.com). Here's how to solve this with denyallow:
+
+*$denyallow=com|net
+
+Examples:
+
+    *$denyallow=com|net: block everything except for *.com and *.net.
+
+    @@*$denyallow=com|net: unblock everything except for *.com and *.net.
+
+    ||example.org^$denyallow=sub.example.org. block example.org and *.example.org but don't block sub.example.org.
+
+dnstype
+
+The dnstype modifier allows specifying DNS request or response type on which this rule will be triggered.
+
+The syntax is:
+
+$dnstype=value1|value2|...
+$dnstype=~value1|~value2|~...
+
+The names of the types are case-insensitive, but are validated against a set of actual DNS resource record (RR) types.
+
+Do not combine exclusion rules with inclusion ones. This:
+
+$dnstype=~value1|value2
+
+is equivalent to this:
+
+$dnstype=value2
+
+Examples:
+
+    ||example.org^$dnstype=AAAA: block DNS queries for the IPv6 addresses of example.org.
+
+    ||example.org^$dnstype=~A|~CNAME: only allow A and CNAME DNS queries for example.org, block out the rest.
+
+NOTE: Before version v0.108.0, AdGuard Home would use the type of the request to filter the response records, as opposed to the type of the response record itself. That caused issues, since that meant that you could not write rules that would allow certain CNAME records in responses in A and AAAA requests. In v0.108.0 that behaviour was changed, so now this:
+
+||canon.example.com^$dnstype=~CNAME
+
+allows you to avoid filtering of the following response:
+
+ANSWERS:
+->  example.com
+    canonical name = canon.example.com.
+    ttl = 60
+->  canon.example.com
+    internet address = 1.2.3.4
+    ttl = 60
+
+dnsrewrite
+
+The dnsrewrite response modifier allows replacing the content of the response to the DNS request for the matching hosts. Note that this modifier in AdGuard Home works in all rules, but in Private AdGuard DNS — only in custom ones.
+
+Rules with the dnsrewrite response modifier have higher priority than other rules in AdGuard Home.
+
+The shorthand syntax is:
+
+$dnsrewrite=1.2.3.4
+$dnsrewrite=abcd::1234
+$dnsrewrite=example.net
+$dnsrewrite=REFUSED
+
+The keywords MUST be in all caps (e.g. NOERROR). Keyword rewrites take precedence over the other and will result in an empty response with an appropriate response code.
+
+The full syntax is of the form RCODE;RRTYPE;VALUE:
+
+$dnsrewrite=NOERROR;A;1.2.3.4
+$dnsrewrite=NOERROR;AAAA;abcd::1234
+$dnsrewrite=NOERROR;CNAME;example.net
+$dnsrewrite=REFUSED;;
+
+The $dnsrewrite modifier with the NOERROR response code may also has empty RRTYPE and VALUE fields.
+
+The CNAME one is special because AdGuard Home will resolve the host and add its info to the response. That is, if example.net has IP 1.2.3.4, and the user has this in their filter rules:
+
+||example.com^$dnsrewrite=example.net
+! Or:
+||example.com^$dnsrewrite=NOERROR;CNAME;example.net
+
+then the response will be something like:
+
+nslookup example.com my.adguard.local
+
+Server: my.adguard.local
+Address: 127.0.0.1#53
+
+Non-authoritative answer:
+example.com canonical name = example.net.
+Name: example.net
+Address: 1.2.3.4
+
+Next, the CNAME rewrite. After that, all other records' values are summed as one response, so this:
+
+||example.com^$dnsrewrite=NOERROR;A;1.2.3.4
+||example.com^$dnsrewrite=NOERROR;A;1.2.3.5
+
+will result in a response with two A records.
+
+Currently supported RR types with examples:
+
+    ||4.3.2.1.in-addr.arpa^$dnsrewrite=NOERROR;PTR;example.net. adds a PTR record for reverse DNS. Reverse DNS requests for 1.2.3.4 to the DNS server will result in example.net.
+
+    NOTE: the IP MUST be in reverse order. See RFC 1035.
+
+    ||example.com^$dnsrewrite=NOERROR;A;1.2.3.4 adds an A record with the value 1.2.3.4.
+
+    ||example.com^$dnsrewrite=NOERROR;AAAA;abcd::1234 adds an AAAA record with the value abcd::1234.
+
+    ||example.com^$dnsrewrite=NOERROR;CNAME;example.org adds a CNAME record. See explanation above.
+
+    ||example.com^$dnsrewrite=NOERROR;HTTPS;32 example.com alpn=h3 adds an HTTPS record. Only a subset of parameter values is supported: values must be contiguous and, where a value-list is expected, only one value is currently supported:
+
+    ipv4hint=127.0.0.1             // Supported.
+    ipv4hint="127.0.0.1"           // Unsupported.
+    ipv4hint=127.0.0.1,127.0.0.2   // Unsupported.
+    ipv4hint="127.0.0.1,127.0.0.2" // Unsupported.
+
+    This will be changed in the future.
+
+    ||example.com^$dnsrewrite=NOERROR;MX;32 example.mail adds an MX record with precedence value 32 and exchange value example.mail.
+
+    ||example.com^$dnsrewrite=NOERROR;SVCB;32 example.com alpn=h3 adds a SVCB value. See the HTTPS example above.
+
+    ||example.com^$dnsrewrite=NOERROR;TXT;hello_world adds a TXT record with the value hello_world.
+
+    ||_svctype._tcp.example.com^$dnsrewrite=NOERROR;SRV;10 60 8080 example.com adds an SRV record with priority value 10, weight value 60, port8080, and target value example.com.
+
+    ||example.com^$dnsrewrite=NXDOMAIN;; responds with an NXDOMAIN code.
+
+    $dnstype=AAAA,denyallow=example.org,dnsrewrite=NOERROR;; responds with an empty NOERROR answers for all AAAA requests except the ones for example.org.
+
+Exception rules unblock one or all rules:
+
+    @@||example.com^$dnsrewrite unblocks all DNS rewrite rules.
+
+    @@||example.com^$dnsrewrite=1.2.3.4 unblocks the DNS rewrite rule that adds an A record with the value 1.2.3.4.
+
+important
+
+The important modifier applied to a rule increases its priority over any other rule without the modifier. Even over basic exception rules.
+
+Examples:
+
+    In this example:
+
+    ||example.org^$important
+    @@||example.org^
+
+||example.org^$important will block all requests to *.example.org despite the exception rule.
+
+In this example:
+
+||example.org^$important
+@@||example.org^$important
+
+    the exception rule also has the important modifier, so it will work.
+
+badfilter
+
+The rules with the badfilter modifier disable other basic rules to which they refer. It means that the text of the disabled rule should match the text of the badfilter rule (without the badfilter modifier).
+
+Examples:
+
+    ||example.com$badfilter disables ||example.com.
+
+    @@||example.org^$badfilter disables @@||example.org^.
+
+    NOTE: The badfilter modifier currently doesn't work with /etc/hosts-style rules. 127.0.0.1 example.org$badfilter will not disable the original 127.0.0.1 example.org rule.
+
+ctag
+
+The ctag modifier can only be used in AdGuard Home.
+
+It allows to block domains only for specific types of DNS client tags. You can assign tags to clients in the AdGuard Home UI. In the future, we plan to assign tags automatically by analyzing the behavior of each client.
+
+The syntax is:
+
+$ctag=value1|value2|...
+
+If one of client's tags matches the ctag values, this rule applies to the client. The syntax for exclusion is:
+
+$ctag=~value1|~value2|...
+
+If one of client's tags matches the exclusion ctag values, this rule doesn't apply to the client.
+
+Examples:
+
+    ||example.org^$ctag=device_pc|device_phone: block example.org for clients tagged as device_pc or device_phone.
+
+    ||example.org^$ctag=~device_phone: block example.org for all clients except those tagged as device_phone.
+
+The list of allowed tags:
+
+    By device type:
+        device_audio: audio devices.
+        device_camera: cameras.
+        device_gameconsole: game consoles.
+        device_laptop: laptops.
+        device_nas: NAS (Network-attached Storages).
+        device_pc: PCs.
+        device_phone: phones.
+        device_printer: printers.
+        device_securityalarm: security alarms.
+        device_tablet: tablets.
+        device_tv: TVs.
+        device_other: other devices.
+
+    By operating system:
+        os_android: Android.
+        os_ios: iOS.
+        os_linux: Linux.
+        os_macos: macOS.
+        os_windows: Windows.
+        os_other: other OSes.
+
+    By user group:
+        user_admin: administrators.
+        user_regular: regular users.
+        user_child: children.
+
+/etc/hosts-style syntax
+
+For each host a single line should be present with the following information:
+
+IP_address canonical_hostname [aliases...]
+
+Fields of the entries are separated by any number of space or tab characters. Text from the # character until the end of the line is a comment and is ignored.
+
+Hostnames may contain only alphanumeric characters, hyphen-minus signs (-), and periods (.). They must begin with an alphabetic character and end with an alphanumeric character. Optional aliases provide for name changes, alternate spellings, shorter hostnames, or generic hostnames (for example, localhost).
+
+Example:
+
+# This is a comment
+127.0.0.1 example.org example.info
+127.0.0.1 example.com
+127.0.0.1 example.net # this is also a comment
+
+In AdGuard Home, the IP addresses are used to respond to DNS queries for these domains. In Private AdGuard DNS, these addresses are simply blocked.
+Domains-only syntax
+
+A simple list of domain names, one name per line.
+
+Example:
+
+# This is a comment
+example.com
+example.org
+example.net # this is also a comment
+
+If a string is not a valid domain (e.g. *.example.org), AdGuard Home will consider it to be an Adblock-style syntax rule.
+Hostlist compiler
+
+If you are maintaining a blocklist and use different sources in it, Hostlist compiler may be useful to you. It is a simple tool that makes it easier to compile a hosts blocklist compatible with AdGuard Home, Private AdGuard DNS or any other AdGuard product with DNS filtering.
+
+What it's capable of:
+
+    Compile a single blocklist from multiple sources.
+
+    Exclude the rules you don't need.
+
+    Cleanup the resulting list: deduplicate, remove invalid rules, and compress the list.
+
+Known DNS Providers
+info
+
+Here we suggest a list of trusted DNS providers. To use them, first install AdGuard Ad Blocker or AdGuard VPN on your device. Then, on the same device, click the link to a provider in this article
+
+Quick links: Download AdGuard Ad Blocker, Download AdGuard VPN
+Public anycast resolvers
+
+These are globally distributed, large-scale DNS resolvers that use anycast routing to direct your DNS queries to the nearest data center.
+AdGuard DNS
+
+AdGuard DNS is an alternative solution for ad blocking, privacy protection, and parental control. It provides the necessary number of protection features against online ads, trackers, and phishing, no matter what platform and device you use.
+Default
+
+These servers block ads, tracking, and phishing.
+Protocol	Address	
+DNS, IPv4	94.140.14.14 and 94.140.15.15	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a10:50c0::ad1:ff and 2a10:50c0::ad2:ff	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dns.adguard-dns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.adguard-dns.com	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC	quic://dns.adguard-dns.com	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt.default.ns1.adguard.com IP: 94.140.14.14:5443	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt.default.ns1.adguard.com IP: [2a10:50c0::ad1:ff]:5443	Add to AdGuard
+Family Protection
+
+These servers provide the Default features + Blocking adult websites + Safe search.
+Protocol	Address	
+DNS, IPv4	94.140.14.15 and 94.140.15.16	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a10:50c0::bad1:ff and 2a10:50c0::bad2:ff	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://family.adguard-dns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://family.adguard-dns.com	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC	quic://family.adguard-dns.com	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt.family.ns1.adguard.com IP: 94.140.14.15:5443	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt.family.ns1.adguard.com IP: [2a10:50c0::bad1:ff]:5443	Add to AdGuard
+Non-filtering
+
+Each of these servers provides a secure and reliable connection, but unlike the "Standard" and "Family Protection" servers, they don't filter anything.
+Protocol	Address	
+DNS, IPv4	94.140.14.140 and 94.140.14.141	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a10:50c0::1:ff and 2a10:50c0::2:ff	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://unfiltered.adguard-dns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://unfiltered.adguard-dns.com	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC	quic://unfiltered.adguard-dns.com	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt.unfiltered.ns1.adguard.com IP: 94.140.14.140:5443	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt.unfiltered.ns1.adguard.com IP: [2a10:50c0::1:ff]:5443	Add to AdGuard
+Ali DNS
+
+Ali DNS is a free recursive DNS service that committed to providing fast, stable and secure DNS resolution for the majority of Internet users. It includes AliGuard facility to protect users from various attacks and threats.
+Protocol	Address	
+DNS, IPv4	223.5.5.5 and 223.6.6.6	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2400:3200::1 and 2400:3200:baba::1	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dns.alidns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.alidns.com	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC	quic://dns.alidns.com:853	Add to AdGuard, Add to AdGuard VPN
+BebasDNS by BebasID
+
+BebasDNS is a free and neutral public resolver based in Indonesia which supports OpenNIC domain. Created by Komunitas Internet Netral Indonesia (KINI) to serve Indonesian user with free and neutral internet connection.
+Default
+
+This is the default variant of BebasDNS. This variant blocks ads, malware, and phishing domains.
+Protocol	Address	
+DNS-over-HTTPS	https://dns.bebasid.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.bebasid.com:853	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.dns.bebasid.com IP: 103.87.68.194:8443	Add to AdGuard
+Unfiltered
+
+This variant doesn't filter anything.
+Protocol	Address	
+DNS-over-HTTPS	https://dns.bebasid.com/unfiltered	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://unfiltered.dns.bebasid.com:853	Add to AdGuard, Add to AdGuard VPN
+Security
+
+This is the security/antivirus variant of BebasDNS. This variant only blocks malware, and phishing domains.
+Protocol	Address	
+DNS-over-HTTPS	https://antivirus.bebasid.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://antivirus.bebasid.com:853	Add to AdGuard, Add to AdGuard VPN
+Family
+
+This is the family variant of BebasDNS. This variant blocks pornography, gambling, hate site, blocks malware, and phishing domains.
+Protocol	Address	
+DNS-over-HTTPS	https://internetsehat.bebasid.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://internetsehat.bebasid.com:853	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.internetsehat.bebasid.com IP: 103.87.68.196:8443	Add to AdGuard
+Family With Ad Filtering
+
+This is the family variant of BebasDNS but with adblocker
+Protocol	Address	
+DNS-over-HTTPS	https://internetsehat.bebasid.com/adblock	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://family-adblock.bebasid.com:853	Add to AdGuard, Add to AdGuard VPN
+OISD Filter
+
+This is a custom BebasDNS variant with only OISD Big filter
+Protocol	Address	
+DNS-over-HTTPS	https://dns.bebasid.com/dns-oisd	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://oisd.dns.bebasid.com:853	Add to AdGuard, Add to AdGuard VPN
+Hagezi Multi Normal Filter
+
+This is a custom BebasDNS variant with only Hagezi Multi Normal filter
+Protocol	Address	
+DNS-over-HTTPS	https://dns.bebasid.com/dns-hagezi	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://hagezi.dns.bebasid.com:853	Add to AdGuard, Add to AdGuard VPN
+0ms DNS
+
+DNS is a global DNS resolution service provided by 0ms Group as an alternative to your current DNS provider.
+
+It uses OISD Big as the basic filter to give everyone a more secure environment. It is designed with various optimizations, such as HTTP/3, caching, and more. It leverages machine learning to protect users from potential security threats while also optimizing itself over time.
+Protocol	Address	
+DNS-over-HTTPS	https://0ms.dev/dns-query	Add to AdGuard, Add to AdGuard VPN
+CFIEC Public DNS
+
+IPv6-based anycast DNS service with strong security capabilities and protection from spyware, malicious websites. It supports DNS64 to provide domain name resolution only for IPv6 users.
+Protocol	Address	
+DNS, IPv6	240C::6666 and 240C::6644	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dns.cfiec.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.cfiec.net	Add to AdGuard, Add to AdGuard VPN
+Cisco OpenDNS
+
+Cisco OpenDNS is a service which extends the DNS by incorporating features such as content filtering and phishing protection with a zero downtime.
+Standard
+
+DNS servers with custom filtering that protects your device from malware.
+Protocol	Address	
+DNS, IPv4	208.67.222.222 and 208.67.220.220	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2620:119:35::35 and 2620:119:53::53	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.opendns.com IP: 208.67.220.220	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.opendns.com IP: [2620:0:ccc::2]	Add to AdGuard
+DNS-over-HTTPS	https://doh.opendns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.opendns.com	Add to AdGuard, Add to AdGuard VPN
+FamilyShield
+
+OpenDNS servers that provide adult content blocking.
+Protocol	Address	
+DNS, IPv4	208.67.222.123 and 208.67.220.123	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.opendns.com IP: 208.67.220.123	Add to AdGuard
+DNS-over-HTTPS	https://doh.familyshield.opendns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://familyshield.opendns.com	Add to AdGuard, Add to AdGuard VPN
+Sandbox
+
+Non-filtering OpenDNS servers.
+Protocol	Address	
+DNS, IPv4	208.67.222.2 and 208.67.220.2	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2620:0:ccc::2 IP: 2620:0:ccd::2	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.sandbox.opendns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://sandbox.opendns.com	Add to AdGuard, Add to AdGuard VPN
+info
+
+OpenDNS's servers remove the AUTHORITY sections from certain responses, including those with NODATA, which makes caching such responses impossible.
+CleanBrowsing
+
+CleanBrowsing is a DNS service which provides customizable filtering. This service offers a safe way to browse the web without inappropriate content.
+Family Filter
+
+Blocks access to all adult, pornographic and explicit sites, including proxy & VPN domains and mixed content sites.
+Protocol	Address	
+DNS, IPv4	185.228.168.168 and 185.228.169.168	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a0d:2a00:1:: and 2a0d:2a00:2::	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: cleanbrowsing.org IP: 185.228.168.168:8443	Add to AdGuard
+DNSCrypt, IPv6	Provider: cleanbrowsing.org IP: [2a0d:2a00:1::]:8443	Add to AdGuard
+DNS-over-HTTPS	https://doh.cleanbrowsing.org/doh/family-filter/	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://family-filter-dns.cleanbrowsing.org	Add to AdGuard, Add to AdGuard VPN
+Adult Filter
+
+Less restrictive than the Family filter, it only blocks access to adult content and malicious and phishing domains.
+Protocol	Address	
+DNS, IPv4	185.228.168.10 and 185.228.169.11	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a0d:2a00:1::1 and 2a0d:2a00:2::1	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: cleanbrowsing.org IP: 185.228.168.10:8443	Add to AdGuard
+DNSCrypt, IPv6	Provider: cleanbrowsing.org IP: [2a0d:2a00:1::1]:8443	Add to AdGuard
+DNS-over-HTTPS	https://doh.cleanbrowsing.org/doh/adult-filter/	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://adult-filter-dns.cleanbrowsing.org	Add to AdGuard, Add to AdGuard VPN
+Security Filter
+
+Blocks phishing, spam and malicious domains.
+Protocol	Address	
+DNS, IPv4	185.228.168.9 and 185.228.169.9	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a0d:2a00:1::2 and 2a0d:2a00:2::2	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.cleanbrowsing.org/doh/security-filter/	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://security-filter-dns.cleanbrowsing.org	Add to AdGuard, Add to AdGuard VPN
+Cloudflare DNS
+
+Cloudflare DNS is a free and fast DNS service which functions as a recursive name server providing domain name resolution for any host on the Internet.
+Standard
+Protocol	Address	
+DNS, IPv4	1.1.1.1 and 1.0.0.1	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2606:4700:4700::1111 and 2606:4700:4700::1001	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS, IPv4	https://dns.cloudflare.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS, IPv6	https://dns.cloudflare.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://one.one.one.one	Add to AdGuard, Add to AdGuard VPN
+Malware blocking only
+Protocol	Address	
+DNS, IPv4	1.1.1.2 and 1.0.0.2	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2606:4700:4700::1112 and 2606:4700:4700::1002	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://security.cloudflare-dns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://security.cloudflare-dns.com	Add to AdGuard, Add to AdGuard VPN
+Malware and adult content blocking
+Protocol	Address	
+DNS, IPv4	1.1.1.3 and 1.0.0.3	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2606:4700:4700::1113 and 2606:4700:4700::1003	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS, IPv4	https://family.cloudflare-dns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://family.cloudflare-dns.com	Add to AdGuard, Add to AdGuard VPN
+Comodo Secure DNS
+
+Comodo Secure DNS is a domain name resolution service that resolves your DNS requests through worldwide network of DNS servers. Removes excessive ads and protects from phishing and spyware.
+Protocol	Address	
+DNS, IPv4	8.26.56.26 and 8.20.247.20	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.shield-2.dnsbycomodo.com IP: 8.20.247.2	Add to AdGuard
+ControlD
+
+ControlD is a customizable DNS service with proxy capabilities. This means it not only blocks things (ads, porn, etc.), but can also unblock websites and services.
+Non-filtering
+Protocol	Address	
+DNS, IPv4	76.76.2.0 and 76.76.10.0	Add to AdGuard, Add to AdGuard VPN
+IPv6	2606:1a40:: and 2606:1a40:1::	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://freedns.controld.com/p0	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	p0.freedns.controld.com	Add to AdGuard, Add to AdGuard VPN
+Block malware
+Protocol	Address	
+DNS, IPv4	76.76.2.1	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://freedns.controld.com/p1	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://p1.freedns.controld.com	Add to AdGuard, Add to AdGuard VPN
+Block malware + ads
+Protocol	Address	
+DNS, IPv4	76.76.2.2	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://freedns.controld.com/p2	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://p2.freedns.controld.com	Add to AdGuard, Add to AdGuard VPN
+Block malware + ads + social
+Protocol	Address	
+DNS, IPv4	76.76.2.3	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://freedns.controld.com/p3	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://p3.freedns.controld.com	[Add to AdGuard, Add to AdGuard VPN
+DeCloudUs DNS
+
+DeCloudUs DNS is a DNS service that lets you block anything you wish while by default protecting you and your family from ads, trackers, malware, phishing, malicious sites, and much more.
+Protocol	Address	
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.DeCloudUs-test IP: 78.47.212.211:9443	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.DeCloudUs-test IP: [2a01:4f8:13a:250b::30]:9443	Add to AdGuard
+DNS-over-HTTPS	https://dns.decloudus.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.decloudus.com	Add to AdGuard, Add to AdGuard VPN
+DNS Privacy
+
+A collaborative open project to promote, implement, and deploy DNS Privacy.
+DNS servers run by the Stubby developers
+Protocol	Address	
+DNS-over-TLS	Hostname: tls://getdnsapi.net IP: 185.49.141.37 and IPv6: 2a04:b900:0:100::37	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Provider: Surfnet Hostname: tls://dnsovertls.sinodun.com IP: 145.100.185.15 and IPv6: 2001:610:1:40ba:145:100:185:15	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Provider: Surfnet Hostname: tls://dnsovertls1.sinodun.com IP: 145.100.185.16 and IPv6: 2001:610:1:40ba:145:100:185:16	Add to AdGuard, Add to AdGuard VPN
+Other DNS servers with no-logging policy
+Protocol	Address	
+DNS-over-TLS	Provider: UncensoredDNS Hostname: tls://unicast.censurfridns.dk IP: 89.233.43.71 and IPv6: 2a01:3a0:53:53::0	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Provider: UncensoredDNS Hostname: tls://anycast.censurfridns.dk IP: 91.239.100.100 and IPv6: 2001:67c:28a4::	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Provider: dkg Hostname: tls://dns.cmrg.net IP: 199.58.81.218 and IPv6: 2001:470:1c:76d::53	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS, IPv4	Hostname: tls://dns.larsdebruin.net IP: 51.15.70.167	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Hostname: tls://dns-tls.bitwiseshift.net IP: 81.187.221.24 and IPv6: 2001:8b0:24:24::24	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Hostname: tls://ns1.dnsprivacy.at IP: 94.130.110.185 and IPv6: 2a01:4f8:c0c:3c03::2	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Hostname: tls://ns2.dnsprivacy.at IP: 94.130.110.178 and IPv6: 2a01:4f8:c0c:3bfc::2	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS, IPv4	Hostname: tls://dns.bitgeek.in IP: 139.59.51.46	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Hostname: tls://dns.neutopia.org IP: 89.234.186.112 and IPv6: 2a00:5884:8209::2	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Provider: Go6Lab Hostname: tls://privacydns.go6lab.si and IPv6: 2001:67c:27e4::35	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Hostname: tls://dot.securedns.eu IP: 146.185.167.43 and IPv6: 2a03:b0c0:0:1010::e9a:3001	Add to AdGuard, Add to AdGuard VPN
+DNS servers with minimal logging/restrictions
+
+These servers use some logging, self-signed certs or no support for strict mode.
+Protocol	Address	
+DNS-over-TLS	Provider: NIC Chile Hostname: dnsotls.lab.nic.cl IP: 200.1.123.46 and IPv6: 2001:1398:1:0:200:1:123:46	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Provider: OARC Hostname: tls-dns-u.odvr.dns-oarc.net IP: 184.105.193.78 and IPv6: 2620:ff:c000:0:1::64:25	Add to AdGuard, Add to AdGuard VPN
+DNS.SB
+
+DNS.SB provides free DNS service without logging and with DNSSEC enabled.
+Protocol	Address	
+DNS, IPv4	185.222.222.222 and 45.11.45.11	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a09:: and 2a11::	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.dns.sb/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dot.sb	Add to AdGuard, Add to AdGuard VPN
+DNSPod Public DNS+
+
+DNSPod Public DNS+ is a privacy-friendly DNS provider with years of experience in domain name resolution services development, it aims to provide users more rapid, accurate and stable recursive resolution service.
+Protocol	Address	
+DNS, IPv4	119.29.29.29 and 119.28.28.28	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.pub/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dns.pub/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dot.pub	Add to AdGuard, Add to AdGuard VPN
+DNSWatchGO
+
+DNSWatchGO is a DNS service by WatchGuard that prevents people from interacting with malicious content.
+Protocol	Address	
+DNS, IPv4	54.174.40.213 and 52.3.100.184	Add to AdGuard, Add to AdGuard VPN
+Dyn DNS
+
+Dyn DNS is a free alternative DNS service by Dyn.
+Protocol	Address	
+DNS, IPv4	216.146.35.35 and 216.146.36.36	Add to AdGuard, Add to AdGuard VPN
+Freenom World
+
+Freenom World is a free anonymous DNS resolver by Freenom World.
+Protocol	Address	
+DNS, IPv4	80.80.80.80 and 80.80.81.81	Add to AdGuard, Add to AdGuard VPN
+Google DNS
+
+Google DNS is a free, global DNS resolution service that you can use as an alternative to your current DNS provider.
+Protocol	Address	
+DNS, IPv4	8.8.8.8 and 8.8.4.4	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2001:4860:4860::8888 and 2001:4860:4860::8844	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dns.google/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.google	Add to AdGuard, Add to AdGuard VPN
+Hurricane Electric Public Recursor
+
+Hurricane Electric Public Recursor is a free alternative DNS service by Hurricane Electric with anycast.
+Protocol	Address	
+DNS, IPv4	74.82.42.42	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2001:470:20::2	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://ordns.he.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://ordns.he.net	Add to AdGuard, Add to AdGuard VPN
+Mullvad
+
+Mullvad provides publicly accessible DNS with QNAME minimization, endpoints located in Germany, Singapore, Sweden, United Kingdom and United States (Dallas & New York).
+Non-filtering
+Protocol	Address	
+DNS-over-HTTPS	https://dns.mullvad.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.mullvad.net	Add to AdGuard, Add to AdGuard VPN
+Ad blocking
+Protocol	Address	
+DNS-over-HTTPS	https://adblock.dns.mullvad.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://adblock.dns.mullvad.net	Add to AdGuard, Add to AdGuard VPN
+Ad + malware blocking
+Protocol	Address	
+DNS-over-HTTPS	https://base.dns.mullvad.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://base.dns.mullvad.net	Add to AdGuard, Add to AdGuard VPN
+Ad + malware + social media blocking
+Protocol	Address	
+DNS-over-HTTPS	https://extended.dns.mullvad.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://extended.dns.mullvad.net	Add to AdGuard, Add to AdGuard VPN
+Ad + malware + adult + gambling blocking
+Protocol	Address	
+DNS-over-HTTPS	https://family.dns.mullvad.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://family.dns.mullvad.net	Add to AdGuard, Add to AdGuard VPN
+Ad + malware + adult + gambling + social media blocking
+Protocol	Address	
+DNS-over-HTTPS	https://all.dns.mullvad.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://all.dns.mullvad.net	Add to AdGuard, Add to AdGuard VPN
+Nawala Childprotection DNS
+
+Nawala Childprotection DNS is an anycast Internet filtering system that protects children from inappropriate websites and abusive contents.
+Protocol	Address	
+DNS, IPv4	180.131.144.144 and 180.131.145.145	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.nawala.id IP: 180.131.144.144	Add to AdGuard
+Neustar Recursive DNS
+
+Neustar Recursive DNS is a free cloud-based recursive DNS service that delivers fast and reliable access to sites and online applications with built-in security and threat intelligence.
+Reliability & Performance 1
+
+These servers provide reliable and fast DNS lookups without blocking any specific categories.
+Protocol	Address	
+DNS, IPv4	156.154.70.1 and 156.154.71.1	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2610:a1:1018::1 and 2610:a1:1019::1	Add to AdGuard, Add to AdGuard VPN
+Reliability & Performance 2
+
+These servers provide reliable and fast DNS lookups without blocking any specific categories and also prevent redirecting NXDomain (non-existent domain) responses to landing pages.
+Protocol	Address	
+DNS, IPv4	156.154.70.5 and 156.154.71.5	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2610:a1:1018::5 and 2610:a1:1019::5	Add to AdGuard, Add to AdGuard VPN
+Threat Protection
+
+These servers provide protection against malicious domains and also include "Reliability & Performance" features.
+Protocol	Address	
+DNS, IPv4	156.154.70.2 and 156.154.71.2	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2610:a1:1018::2 and 2610:a1:1019::2	Add to AdGuard, Add to AdGuard VPN
+Family Secure
+
+These servers provide adult content blocking and also include "Reliability & Performance" + "Threat Protection" features.
+Protocol	Address	
+DNS, IPv4	156.154.70.3 and 156.154.71.3	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2610:a1:1018::3 and 2610:a1:1019::3	Add to AdGuard, Add to AdGuard VPN
+Business Secure
+
+These servers provide blocking unwanted and time-wasting content and also include "Reliability & Performance" + "Threat Protection" + "Family Secure" features.
+Protocol	Address	
+DNS, IPv4	156.154.70.4 and 156.154.71.4	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2610:a1:1018::4 and 2610:a1:1019::4	Add to AdGuard, Add to AdGuard VPN
+NextDNS
+
+NextDNS provides publicly accessible non-filtering resolvers without logging in addition to its freemium configurable filtering resolvers with optional logging.
+Ultra-low latency
+Protocol	Address	
+DNS-over-HTTPS	https://dns.nextdns.io	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.nextdns.io	Add to AdGuard, Add to AdGuard VPN
+Anycast
+Protocol	Address	
+DNS-over-HTTPS	https://anycast.dns.nextdns.io	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://anycast.dns.nextdns.io	Add to AdGuard, Add to AdGuard VPN
+OpenBLD.net DNS
+
+OpenBLD.net DNS — Anycast/GeoDNS DNS-over-HTTPS, DNS-over-TLS resolvers with blocking: advertising, tracking, adware, malware, malicious activities and phishing companies, blocks ~1M domains. Has 24h/48h logs for DDoS/Flood attack mitigation.
+Adaptive Filtering (ADA)
+
+Recommended for most users, very flexible filtering with blocking most ads networks, ad-tracking, malware and phishing domains.
+Protocol	Address	
+DNS-over-HTTPS	https://ada.openbld.net/dns-query	Add to AdGuard
+DNS-over-TLS	tls://ada.openbld.net	Add to AdGuard
+Strict Filtering (RIC)
+
+More strictly filtering policies with blocking — ads, marketing, tracking, clickbait, coinhive, malicious, and phishing domains.
+Protocol	Address	
+DNS-over-HTTPS	https://ric.openbld.net/dns-query	Add to AdGuard
+DNS-over-TLS	tls://ric.openbld.net	Add to AdGuard
+dns0.eu
+
+dns0.eu is a free, sovereign and GDPR-compliant recursive DNS resolver with a strong focus on security to protect the citizens and organizations of the European Union.
+Protocol	Address	
+DNS, IPv4	193.110.81.0 and 185.253.5.0	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://zero.dns0.eu/	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://zero.dns0.eu	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC	quic://zero.dns0.eu	Add to AdGuard, Add to AdGuard VPN
+Quad9 DNS
+
+Quad9 DNS is a free, recursive, anycast DNS platform that provides high-performance, privacy, and security protection from phishing and spyware. Quad9 servers don't provide a censoring component.
+Standard
+
+Regular DNS servers which provide protection from phishing and spyware. They include blocklists, DNSSEC validation, and other security features.
+Protocol	Address	
+DNS, IPv4	9.9.9.9 and 149.112.112.112	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2620:fe::fe IP: 2620:fe::fe:9	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.quad9.net IP: 9.9.9.9:8443	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.quad9.net IP: [2620:fe::fe]:8443	Add to AdGuard
+DNS-over-HTTPS	https://dns.quad9.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.quad9.net	Add to AdGuard, Add to AdGuard VPN
+Unsecured
+
+Unsecured DNS servers don't provide security blocklists, DNSSEC, or EDNS Client Subnet.
+Protocol	Address	
+DNS, IPv4	9.9.9.10 and 149.112.112.10	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2620:fe::10 IP: 2620:fe::fe:10	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.quad9.net IP: 9.9.9.10:8443	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.quad9.net IP: [2620:fe::fe:10]:8443	Add to AdGuard
+DNS-over-HTTPS	https://dns10.quad9.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns10.quad9.net	Add to AdGuard, Add to AdGuard VPN
+ECS support
+
+EDNS Client Subnet is a method that includes components of end-user IP address data in requests that are sent to authoritative DNS servers. It provides security blocklist, DNSSEC, EDNS Client Subnet.
+Protocol	Address	
+DNS, IPv4	9.9.9.11 and 149.112.112.11	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2620:fe::11 IP: 2620:fe::fe:11	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.quad9.net IP: 9.9.9.11:8443	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.quad9.net IP: [2620:fe::11]:8443	Add to AdGuard
+DNS-over-HTTPS	https://dns11.quad9.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns11.quad9.net	Add to AdGuard, Add to AdGuard VPN
+RethinkDNS
+
+RethinkDNS provides DNS-over-HTTPS service running as Cloudflare Worker and DNS-over-TLS service running as Fly.io Worker with configurable blocklists.
+Non-filtering
+Protocol	Address	
+DNS-over-HTTPS	https://basic.rethinkdns.com/	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://max.rethinkdns.com	Add to AdGuard, Add to AdGuard VPN
+Safe DNS
+
+Safe DNS is a global anycast network which consists of servers located throughout the world — both Americas, Europe, Africa, Australia, and the Far East to ensure a fast and reliable DNS resolving from any point worldwide.
+Protocol	Address	
+DNS, IPv4	195.46.39.39 and 195.46.39.40	Add to AdGuard, Add to AdGuard VPN
+Safe Surfer
+
+Safe Surfer is a DNS service that blocks 50+ categories like porn, ads, malware, and popular social media sites making web surfing safer.
+Protocol	Address	
+DNS, IPv4	104.155.237.225 and 104.197.28.121	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.safesurfer.co.nz IP: 104.197.28.121	Add to AdGuard
+360 Secure DNS
+
+360 Secure DNS is a industry-leading recursive DNS service with advanced network security threat protection.
+Protocol	Address	
+DNS, IPv4	101.226.4.6 and 218.30.118.6	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv4	123.125.81.6 and 140.207.198.6	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.360.cn/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dot.360.cn	Add to AdGuard, Add to AdGuard VPN
+Verisign Public DNS
+
+Verisign Public DNS is a free DNS service that offers improved DNS stability and security over other alternatives. Verisign respects users' privacy: they neither sell public DNS data to third parties nor redirect users' queries to serve them ads.
+Protocol	Address	
+DNS, IPv4	64.6.64.6 and 64.6.65.6	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2620:74:1b::1:1 and 2620:74:1c::2:2	Add to AdGuard, Add to AdGuard VPN
+Wikimedia DNS
+
+Wikimedia DNS is a caching, recursive, public DoH and DoT resolver service that is run and managed by the Site Reliability Engineering (Traffic) team at the Wikimedia Foundation on all six Wikimedia data centers with anycast.
+Protocol	Address	
+DNS-over-HTTPS	https://wikimedia-dns.org/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Hostname: wikimedia-dns.org IP: 185.71.138.138 and IPv6: 2001:67c:930::1	Add to AdGuard, Add to AdGuard VPN
+Regional resolvers
+
+Regional DNS resolvers are typically focused on specific geographic regions, offering optimized performance for users in those areas. These resolvers are often operated by non-profit organizations, local ISPs, or other entities.
+Applied Privacy DNS
+
+Applied Privacy DNS operates DNS privacy services to help protect DNS traffic and to help diversify the DNS resolver landscape offering modern protocols.
+Protocol	Address	
+DNS-over-HTTPS	https://doh.applied-privacy.net/query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dot1.applied-privacy.net	Add to AdGuard, Add to AdGuard VPN
+ByteDance Public DNS
+
+ByteDance Public DNS is a free alternative DNS service by ByteDance at China. The only DNS currently provided by ByteDance supports IPV4. DOH, DOT, DOQ, and other encrypted DNS services will be launched soon.
+Protocol	Address	
+DNS, IPv4	180.184.1.1 and 180.184.2.2	Add to AdGuard, Add to AdGuard VPN
+CIRA Canadian Shield DNS
+
+CIRA Shield DNS protects against theft of personal and financial data. Keep viruses, ransomware, and other malware out of your home.
+Private
+
+In "Private" mode, DNS resolution only.
+Protocol	Address	
+DNS, IPv4	149.112.121.10 and 149.112.122.10	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2620:10A:80BB::10 and 2620:10A:80BC::10	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://private.canadianshield.cira.ca/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS — Private	Hostname: tls://private.canadianshield.cira.ca IP: 149.112.121.10 and IPv6: 2620:10A:80BB::10	Add to AdGuard, Add to AdGuard VPN
+Protected
+
+In "Protected" mode, malware and phishing protection.
+Protocol	Address	
+DNS, IPv4	149.112.121.20 and 149.112.122.20	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2620:10A:80BB::20 and 2620:10A:80BC::20	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://protected.canadianshield.cira.ca/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS — Protected	Hostname: tls://protected.canadianshield.cira.ca IP: 149.112.121.20 and IPv6: 2620:10A:80BB::20	Add to AdGuard, Add to AdGuard VPN
+Family
+
+In "Family" mode, Protected + blocking adult content.
+Protocol	Address	
+DNS, IPv4	149.112.121.30 and 149.112.122.30	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2620:10A:80BB::30 and 2620:10A:80BC::30	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://family.canadianshield.cira.ca/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS — Family	Hostname: tls://family.canadianshield.cira.ca IP: 149.112.121.30 and IPv6: 2620:10A:80BB::30	Add to AdGuard, Add to AdGuard VPN
+Comss.one DNS
+
+Comss.one DNS is a fast and secure DNS service with protection against ads, tracking, and phishing.
+Protocol	Address	
+DNS-over-HTTPS	https://dns.controld.com/comss	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://comss.dns.controld.com	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC	quic://comss.dns.controld.com	Add to AdGuard, Add to AdGuard VPN
+CZ.NIC ODVR
+
+CZ.NIC ODVR CZ.NIC ODVR are Open DNSSEC Validating Resolvers. CZ.NIC neither collect any personal data nor gather information on pages where devices sends personal data.
+Protocol	Address	
+DNS, IPv4	193.17.47.1 and 185.43.135.1	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2001:148f:ffff::1 and 2001:148f:fffe::1	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://odvr.nic.cz/doh	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://odvr.nic.cz	Add to AdGuard, Add to AdGuard VPN
+Digitale Gesellschaft DNS
+
+Digitale Gesellschaft is a public resolver operated by the Digital Society. Hosted in Zurich, Switzerland.
+Protocol	Address	
+DNS-over-HTTPS	https://dns.digitale-gesellschaft.ch/dns-query IP: 185.95.218.42 and IPv6: 2a05:fc84::42	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.digitale-gesellschaft.ch IP: 185.95.218.43 and IPv6: 2a05:fc84::43	Add to AdGuard, Add to AdGuard VPN
+DNS for Family
+
+DNS for Family aims to block adult websites. It enables children and adults to surf the Internet safely without worrying about being tracked by malicious websites.
+Protocol	Address	
+DNS-over-HTTPS	https://dns-doh.dnsforfamily.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns-dot.dnsforfamily.com	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv4	94.130.180.225 and 78.47.64.161	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a01:4f8:1c0c:40db::1 and 2a01:4f8:1c17:4df8::1	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: dnsforfamily.com IP: 94.130.180.225	Add to AdGuard
+DNSCrypt, IPv6	Provider: dnsforfamily.com IP: [2a01:4f8:1c0c:40db::1]	Add to AdGuard
+Fondation Restena DNS
+
+Restena DNS servers provided by Restena Foundation.
+Protocol	Address	
+DNS-over-HTTPS	https://kaitain.restena.lu/dns-query IP: 158.64.1.29 and IPv6: 2001:a18:1::29	Add to AdGuard, Add to AdGuard VPN
+
+| DNS-over-TLS| tls://kaitain.restena.lu IP: 158.64.1.29 and IPv6: 2001:a18:1::29 | Add to AdGuard, Add to AdGuard VPN |
+114DNS
+
+114DNS is a professional and high-reliability DNS service.
+Normal
+
+Block ads and annoying websites.
+Protocol	Address	
+DNS, IPv4	114.114.114.114 and 114.114.115.115	Add to AdGuard, Add to AdGuard VPN
+Safe
+
+Blocks phishing, malicious and other unsafe websites.
+Protocol	Address	
+DNS, IPv4	114.114.114.119 and 114.114.115.119	Add to AdGuard, Add to AdGuard VPN
+Family
+
+These servers block adult websites and inappropriate contents.
+Protocol	Address	
+DNS, IPv4	114.114.114.110 and 114.114.115.110	Add to AdGuard, Add to AdGuard VPN
+IIJ.JP DNS
+
+IIJ.JP is a public DNS service operated by Internet Initiative Japan. It also blocks child abuse content.
+Protocol	Address	
+DNS-over-HTTPS	https://public.dns.iij.jp/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://public.dns.iij.jp	Add to AdGuard, Add to AdGuard VPN
+JupitrDNS
+
+JupitrDNS is a a free recursive DNS service that blocks ads, trackers, and malware. It has DNSSEC support and does not store logs.
+Protocol	Address	
+DNS, IPv4	35.215.30.118 and 35.215.48.207	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dns.jupitrdns.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.jupitrdns.com	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC	quic://dns.jupitrdns.com	Add to AdGuard, Add to AdGuard VPN
+LibreDNS
+
+LibreDNS is a public encrypted DNS service run by LibreOps.
+Protocol	Address	
+DNS, IPv4	88.198.92.222	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.libredns.gr/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.libredns.gr/ads	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dot.libredns.gr IP: 116.202.176.26	Add to AdGuard, Add to AdGuard VPN
+OneDNS
+
+OneDNS is a secure, fast, free niche DNS service with malicious domains blocking facility.
+Pure Edition
+Protocol	Address	
+DNS, IPv4	117.50.10.10 and 52.80.52.52	Add to AdGuard, Add to AdGuard VPN
+Block Edition
+Protocol	Address	
+DNS, IPv4	117.50.11.11 and 52.80.66.66	Add to AdGuard, Add to AdGuard VPN
+OpenNIC DNS
+
+OpenNIC DNS is a free alternative DNS service by OpenNIC Project.
+Protocol	Address	
+DNS, IPv4	217.160.70.42	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2001:8d8:1801:86e7::1	Add to AdGuard, Add to AdGuard VPN
+
+This is just one of the available servers, the full list can be found here.
+Quad101
+
+Quad101 is a free alternative DNS service without logging by TWNIC (Taiwan Network Information Center).
+Protocol	Address	
+DNS, IPv4	101.101.101.101 and 101.102.103.104	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2001:de4::101 and 2001:de4::102	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dns.twnic.tw/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://101.101.101.101	Add to AdGuard, Add to AdGuard VPN
+SkyDNS RU
+
+SkyDNS solutions for content filtering and internet security.
+Protocol	Address	
+DNS, IPv4	193.58.251.251	Add to AdGuard, Add to AdGuard VPN
+SWITCH DNS
+
+SWITCH DNS is a Swiss public DNS service provided by switch.ch.
+Protocol	Address	
+DNS, IPv4	Provider: dns.switch.ch IP: 130.59.31.248	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	Provider: dns.switch.ch IPv6: 2001:620:0:ff::2	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dns.switch.ch/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	Hostname: tls://dns.switch.ch IP: 130.59.31.248 and IPv6: 2001:620:0:ff::2	Add to AdGuard, Add to AdGuard VPN
+Yandex DNS
+
+Yandex.DNS is a free recursive DNS service. Yandex.DNS' servers are located in Russia, CIS countries, and Western Europe. Users' requests are processed by the nearest data center which provides high connection speeds.
+Basic
+
+In "Basic" mode, there is no traffic filtering.
+Protocol	Address	
+DNS, IPv4	77.88.8.8 and 77.88.8.1	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a02:6b8::feed:0ff and 2a02:6b8:0:1::feed:0ff	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://common.dot.dns.yandex.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://common.dot.dns.yandex.net	Add to AdGuard, Add to AdGuard VPN
+Safe
+
+In "Safe" mode, protection from infected and fraudulent sites is provided.
+Protocol	Address	
+DNS, IPv4	77.88.8.88 and 77.88.8.2	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a02:6b8::feed:bad and 2a02:6b8:0:1::feed:bad	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://safe.dot.dns.yandex.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://safe.dot.dns.yandex.net	Add to AdGuard, Add to AdGuard VPN
+Family
+
+In "Family" mode, protection from infected, fraudulent and adult sites is provided.
+Protocol	Address	
+DNS, IPv4	77.88.8.3 and 77.88.8.7	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a02:6b8::feed:a11 and 2a02:6b8:0:1::feed:a11	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://family.dot.dns.yandex.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://family.dot.dns.yandex.net	Add to AdGuard, Add to AdGuard VPN
+Small personal resolvers
+
+These are DNS resolvers usually run by enthusiasts or small groups. While they may lack the scale and redundancy of larger providers, they often prioritize privacy, transparency, or offer specialized features.
+
+We won't be able to proper monitor their availability. Use them at your own risk.
+AhaDNS
+
+AhaDNS A zero-logging and ad-blocking DNS service provided by Fredrik Pettersson.
+Netherlands
+Protocol	Address	
+DNS, IPv4	5.2.75.75	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a04:52c0:101:75::75	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.nl.ahadns.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dot.nl.ahadns.net	Add to AdGuard, Add to AdGuard VPN
+Los Angeles
+Protocol	Address	
+DNS, IPv4	45.67.219.208	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a04:bdc7:100:70::70	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.la.ahadns.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dot.la.ahadns.net	Add to AdGuard, Add to AdGuard VPN
+Arapurayil
+
+Arapurayil is a personal DNS service hosted in Mumbai, India.
+
+Non-logging | Filters ads, trackers, phishing, etc. | DNSSEC | QNAME Minimization | No EDNS Client Subnet.
+Protocol	Address	
+DNSCrypt, IPv4	Host: 2.dnscrypt-cert.dns.arapurayil.com IP: 3.7.156.128	Add to AdGuard
+DNS-over-HTTPS	Host: https://dns.arapurayil.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+Captnemo DNS
+
+Captnemo DNS is a server running off of a Digital Ocean droplet in BLR1 region. Maintained by Abhay Rana aka Nemo.
+Protocol	Address	
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.captnemo.in IP: 139.59.48.222:4434	Add to AdGuard
+Dandelion Sprout's Official DNS Server
+
+Dandelion Sprout's Official DNS Server is a personal DNS service hosted in Trondheim, Norway, using an AdGuard Home infrastructure.
+
+Blocks more ads and malware than AdGuard DNS thanks to more advanced syntax, but goes easier on trackers, and blocks alt-right tabloids and most imageboards. Logging is used to improve its used filter lists (e.g. by unblocking sites that shouldn't have been blocked), and to determine the least bad times for server system updates.
+Protocol	Address	
+DNS-over-HTTPS	https://dandelionsprout.asuscomm.com:2501/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dandelionsprout.asuscomm.com:853	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC	quic://dandelionsprout.asuscomm.com:48582	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv4	Varies; see link above.	
+DNS, IPv6	Varies; see link above.	
+DNSCrypt, IPv4	Varies; see link above.	
+DNS Forge
+
+DNS Forge is a redundant DNS resolver with an ad blocker and no logging provided by adminforge.
+Protocol	Address	
+DNS, IPv4	176.9.93.198 and 176.9.1.117	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2a01:4f8:151:34aa::198 and 2a01:4f8:141:316d::117	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dnsforge.de/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dnsforge.de	Add to AdGuard, Add to AdGuard VPN
+dnswarden
+Protocol	Address	
+DNS-over-TLS	uncensored.dns.dnswarden.com	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://dns.dnswarden.com/uncensored	Add to AdGuard, Add to AdGuard VPN
+
+You can also configure custom DNS server to block ads or filter adult content.
+FFMUC DNS
+
+FFMUC free DNS servers provided by Freifunk München.
+Protocol	Address	
+DNS-over-TLS, IPv4	Hostname: tls://dot.ffmuc.net	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS, IPv4	Hostname: https://doh.ffmuc.net/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.ffmuc.net IP: 5.1.66.255:8443	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.ffmuc.net IP: [2001:678:e68:f000::]:8443	Add to AdGuard
+fvz DNS
+
+fvz DNS is a Fusl's public primary OpenNIC Tier2 Anycast DNS Resolver.
+Protocol	Address	
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.dnsrec.meo.ws IP: 185.121.177.177:5353	Add to AdGuard
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.dnsrec.meo.ws IP: 169.239.202.202:5353	Add to AdGuard
+ibksturm DNS
+
+ibksturm DNS testing servers provided by ibksturm. OPENNIC, DNSSEC, no filtering, no logging.
+Protocol	Address	
+DNS-over-TLS, IPv4	Hostname: tls://ibksturm.synology.me IP: 213.196.191.96	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC, IPv4	Hostname: quic://ibksturm.synology.me IP: 213.196.191.96	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS, IPv4	Hostname: https://ibksturm.synology.me/dns-query IP: 213.196.191.96	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.ibksturm IP: 213.196.191.96:8443	Add to AdGuard
+Lelux DNS
+
+Lelux.fi is run by Elias Ojala, Finland.
+Protocol	Address	
+DNS-over-HTTPS	https://resolver-eu.lelux.fi/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://resolver-eu.lelux.fi	Add to AdGuard, Add to AdGuard VPN
+OSZX DNS
+
+OSZX DNS is a small Ad-Blocking DNS hobby project.
+OSZX DNS
+
+This service ia a small ad blocking DNS hobby project with D-o-H, D-o-T & DNSCrypt v2 support.
+Protocol	Address	
+DNS, IPv4	51.38.83.141	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2001:41d0:801:2000::d64	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.oszx.co IP: 51.38.83.141:5353	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.oszx.co IP: [2001:41d0:801:2000::d64]:5353	Add to AdGuard
+DNS-over-HTTPS	https://dns.oszx.co/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.oszx.co	Add to AdGuard, Add to AdGuard VPN
+PumpleX
+
+These servers provide no ad blocking, keep no logs, and have DNSSEC enabled.
+Protocol	Address	
+DNS, IPv4	51.38.82.198	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2001:41d0:801:2000::1b28	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.pumplex.com IP: 51.38.82.198:5353	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.pumplex.com IP: [2001:41d0:801:2000::1b28]:5353	Add to AdGuard
+DNS-over-HTTPS	https://dns.pumplex.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dns.pumplex.com	Add to AdGuard, Add to AdGuard VPN
+Privacy-First DNS
+
+Privacy-First DNS blocks over 140K ads, ad-tracking, malware and phishing domains. No logging, no ECS, DNSSEC validation, free!
+Singapore DNS Server
+Protocol	Address	Location
+DNS, IPv4	174.138.21.128	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2400:6180:0:d0::5f6e:4001	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.dns.tiar.app IP: 174.138.21.128	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.dns.tiar.app IP: [2400:6180:0:d0::5f6e:4001]	Add to AdGuard
+DNS-over-HTTPS	https://doh.tiarap.org/dns-query (cached via third-party)	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://doh.tiar.app/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-QUIC	quic://doh.tiar.app	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://dot.tiar.app	Add to AdGuard, Add to AdGuard VPN
+Japan DNS Server
+Protocol	Address	
+DNS, IPv4	172.104.93.80	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2400:8902::f03c:91ff:feda:c514	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.jp.tiar.app IP: 172.104.93.80	Add to AdGuard
+DNSCrypt, IPv6	Provider: 2.dnscrypt-cert.jp.tiar.app IP: [2400:8902::f03c:91ff:feda:c514]	Add to AdGuard
+DNS-over-HTTPS	https://jp.tiarap.org/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://jp.tiar.app/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://jp.tiar.app	Add to AdGuard, Add to AdGuard VPN
+Seby DNS
+
+Seby DNS is a privacy focused DNS service provided by Sebastian Schmidt. No Logging, DNSSEC validation.
+DNS Server 1
+Protocol	Address	
+DNS, IPv4	45.76.113.31	Add to AdGuard, Add to AdGuard VPN
+DNSCrypt, IPv4	Provider: 2.dnscrypt-cert.dns.seby.io IP: 45.76.113.31	Add to AdGuard
+DNS-over-TLS	tls://dot.seby.io	Add to AdGuard, Add to AdGuard VPN
+BlackMagicc DNS
+
+BlackMagicc DNS is a personal DNS Server located in Vietnam and intended for personal and small-scale use. It features ad blocking, malware/phishing protection, adult content filter, and DNSSEC validation.
+Protocol	Address	
+DNS, IPv4	103.178.234.160	Add to AdGuard, Add to AdGuard VPN
+DNS, IPv6	2405:19c0:2:ea2e::1	Add to AdGuard, Add to AdGuard VPN
+DNS-over-HTTPS	https://robin.techomespace.com/dns-query	Add to AdGuard, Add to AdGuard VPN
+DNS-over-TLS	tls://robin.techomespace.com:853	Add to AdGuard, Add to AdGuard VPN
+
+Overview
+What is AdGuard DNS?
+
+AdGuard DNS is a free, privacy-oriented DNS resolver that provides secure connection and also can block tracking, ads, phishing and adult content (optionally). AdGuard DNS does not require installing any applications. It is easy to use and can be effortlessly set up on any device (smartphones, desktops, routers, game consoles, etc.).
+Public AdGuard DNS servers
+
+AdGuard DNS has three different types of public servers. "Default" server is for blocking ads, trackers, malware and phishing websites. "Family protection" does the same, but also blocks websites with adult content and enforces "Safe search" option in browsers that provide it. "Non-filtering" provides a secure and reliable connection but doesn't block anything. You can find detailed instructions on setting up AdGuard DNS on any device on our website. Each server supports different secure protocols: DNSCrypt, DNS-over-HTTPS (DoH), DNS-over-TLS (DoT), and DNS-over-QUIC (DoQ).
+AdGuard DNS protocols
+
+Besides plain DNS (both IPv4 and IPv6) AdGuard DNS supports various encrypted protocols, so you can choose the one that suits you best.
+DNSCrypt
+
+AdGuard DNS allows you to use a specific encrypted protocol — DNSCrypt. Thanks to it, all DNS requests are being encrypted, which protects you from possible request interception and subsequent eavesdropping and/or alteration. But compared to the DoH, DoT and DoQ protocols, DNSCrypt is considered obsolete and if possible we recommend using these protocols.
+DNS-over-HTTPS (DoH) and DNS-over-TLS (DoT)
+
+DoH and DoT are modern secure DNS protocols that gain more and more popularity and will become the industry standards for the foreseeable future. Both are more reliable than DNSCrypt and both are supported by AdGuard DNS.
+DNS-over-QUIC (DoQ)
+DNS-over-QUIC is a new DNS encryption protocol and AdGuard DNS is the first public resolver that supports it. Unlike DoH and DoT, it uses QUIC as a transport protocol and finally brings DNS back to its roots — working over UDP. It brings all the good things that QUIC has to offer — out-of-the-box encryption, reduced connection times, better performance when data packets are lost. Also, QUIC is supposed to be a transport-level protocol and there are no risks of metadata leaks that could happen with DoH.
+
+How to flush DNS cache
+info
+
+Here we explain how you can flush the DNS cache to resolve public DNS issues. You can use AdGuard Ad Blocker to set up DNS servers, including encrypted ones
+
+Quick link: Download AdGuard Ad Blocker
+What is DNS cache?
+
+DNS cache stores the IP addresses of visited sites on the local computer so that they load faster next time. Instead of doing a long DNS lookup, the system answers the queries with DNS records from the temporary DNS cache.
+
+The DNS cache contains so-called resource records (RRs), which are:
+
+    Resource data (or rdata);
+    Record type;
+    Record name;
+    TTL (time to live);
+    Class;
+    Resource data length.
+
+When you might need to clear the cache
+
+You've changed your DNS provider to AdGuard DNS. If the user has changed their DNS, it may take some time to see the result because of the cache.
+
+You regularly get a 404 error. For example, the website has been transferred to another server, and its IP address has changed. To make the browser open the website from the new IP address, you need to remove the cached IP from the DNS cache.
+
+You want to improve your privacy.
+How to flush DNS cache on different OSs
+iOS
+
+There are different ways to clear the DNS cache on your iPad or iPhone.
+
+The simplest way is to activate the Airplane mode (for example, in the Control Center or in the Settings app) and to deactivate it again. The DNS cache will be flushed.
+
+Another option is to reset the network settings of your device in the Settings app. Open General, scroll down, find Reset and tap Reset Network Settings.
+note
+
+By doing that, you will lose connections to Wi-Fi routers and other specific network settings, including DNS servers customizations. You will need to reset them manually.
+Android
+
+There are different ways to clear the DNS cache on your Android device. The exact steps may vary depending on the version of Android you're using and the device manufacturer.
+Clear DNS cache via Chrome
+
+Google Chrome, often the default browser on Android, has its own DNS cache. To flush this cache in the Chrome browser, follow the instructions below:
+
+    Launch Chrome on your Android device
+    Type chrome://net-internals/#DNS in the address bar
+    On the DNS lookup page, choose DNS from the menu on the left
+    In the panel on the right, tap the Clear Host Cache button to clear the DNS cache on your device
+
+Modify the Wi-Fi network to Static
+
+To clear your Android device's DNS cache by changing Wi-Fi network settings to Static, follow these steps:
+
+    Go to Settings → Wi-Fi and choose the network you're connected to
+    Look for IP settings and select Static
+    Fill in the required fields. You can get the necessary information from your network administrator or from your router's configuration page
+    After entering the required information, reconnect to your Wi-Fi network. This action will force your device to update its IP and DNS settings and clear the DNS cache
+
+Reset network settings
+
+Another option is to reset the network settings of your device in the Settings app. Open Settings → System → Advanced → Reset options → Reset network settings and tap Reset Settings to confirm.
+note
+
+By doing that, you will lose connections to Wi-Fi routers and other specific network settings, including DNS servers customizations. You will need to reset them manually.
+macOS
+
+To clear the DNS cache on macOS, open the Terminal (you can find it by using the Spotlight search — to do that, press Command+Space and type Terminal) and enter the following command:
+
+sudo killall -HUP mDNSResponder
+
+On macOS Big Sur 11.2.0 and macOS Monterey 12.0.0, you may also use this command:
+
+sudo dscacheutil -flushcache
+
+After that, enter your administrator password to complete the process.
+Windows
+
+To flush DNS cache on your Windows device, do the following:
+
+Open the Command Prompt as an administrator. You can find it in the Start Menu by typing command prompt or cmd. Then type ipconfig /flushdns and press Enter.
+
+You will see the line Successfully flushed the DNS Resolver Cache. Done!
+Linux
+
+Linux does not have OS-level DNS caching unless a caching service such as systemd-resolved, DNSMasq, BIND, or nscd is installed and running. The process of clearing the DNS cache depends on the Linux distribution and the caching service used.
+
+For each distribution you need to start a terminal window. Press Ctrl+Alt+T on your keyboard and use the corresponding command to clear the DNS cache for the service your Linux system is running.
+
+To find out which DNS resolver you're using, command sudo lsof -i :53 -S.
+systemd-resolved
+
+To clear the systemd-resolved DNS cache, type:
+
+sudo systemd-resolve --flush-caches
+
+On success, the command doesn’t return any message.
+DNSMasq
+
+To clear the DNSMasq cache, you need to restart it:
+
+sudo service dnsmasq restart
+NSCD
+
+To clear the NSCD cache, you also need to restart the service:
+
+sudo service nscd restart
+BIND
+
+To flush the BIND DNS cache, run the command:
+
+rndc flush
+
+Then you will need to reload BIND:
+
+rndc reload
+
+You will get the message that the server has been successfully reloaded.
+How to flush DNS cache in Chrome
+
+This may be useful if you do not want restart a browser every time during work with the private AdGuard DNS or AdGuard Home. Settings 1–2 only need to be changed once.
+
+    Disable secure DNS in Chrome settings
+
+    chrome://settings/security
+
+Disable Async DNS resolver
+
+chrome://flags/#enable-async-dns
+
+Press both buttons here
+
+chrome://net-internals/#sockets
+
+Press Clear host cache
+
+chrome://net-internals/#dns
+
+Overview
+info
+
+With AdGuard DNS, you can set up your private DNS servers to resolve DNS requests and block ads, trackers, and malicious domains before they reach your device
+
+Quick link: Try AdGuard DNS
+
+Private AdGuard DNS dashboard main
+General
+
+Private AdGuard DNS offers all the advantages of a public AdGuard DNS server, including traffic encryption and domain blocklists. It also offers additional features such as flexible customization, DNS statistics, and Parental control. All these options are easily accessible and managed via a user-friendly dashboard.
+Why you need private AdGuard DNS
+
+Today, you can connect anything to the Internet: TVs, refrigerators, smart bulbs, or speakers. But along with the undeniable conveniences you get trackers and ads. A simple browser-based ad blocker will not protect you in this case, but AdGuard DNS, which you can set up to filter traffic, block content and trackers, has a system-wide effect.
+
+At one time, the AdGuard product line included only public AdGuard DNS and AdGuard Home. These solutions work fine for some users, but for others, the public AdGuard DNS lacks the flexibility of configuration, while the AdGuard Home lacks simplicity. That's where private AdGuard DNS comes into play. It has the best of both worlds: it offers customizability, control and information — all through a simple easy-to-use dashboard.
+The difference between public and private AdGuard DNS
+
+Here is a simple comparison of features available in public and private AdGuard DNS.
+Public AdGuard DNS	Private AdGuard DNS
+DNS traffic encryption	DNS traffic encryption
+Pre-determined domain blocklists	Customizable domain blocklists
+-	Custom DNS filtering rules with import/export feature
+-	Request statistics (see where do your DNS requests go: which countries, which companies, etc.)
+-	Detailed query log
+-	Parental control
+How to set up private AdGuard DNS
+For devices that support DoH, DoT, and DoQ
+
+    Go to your AdGuard DNS dashboard (if not logged in, log in using your AdGuard account)
+    Click Connect device and follow on-screen instructions
+
+Supported platforms:
+
+    Android
+    iOS
+    Windows
+    Mac
+    Linux
+    Routers
+    Gaming consoles
+    Smart TVs
+
+Every device that you add in the AdGuard DNS panel has its own unique address that can be used if the device supports modern encrypted DNS protocols (DoH, DoT, and DoQ).
+For devices that do not support DoH, DoT, and DoQ
+
+If the device does not support encrypted DNS and you have to use plain DNS, there are two more ways to allow AdGuard DNS to recognize the device — use dedicated IP addresses or link device's IP address.
+note
+
+Use plain DNS addresses only if you have no other options: this reduces the security of DNS requests. If you decide to use plain DNS, we recommend that you choose dedicated IP addresses.
+Dedicated IP addresses
+
+For every device that you connect to AdGuard DNS, you'll be offered two dedicated IPv6 addresses that you can enter in your device settings. Using both IPv6 addresses is not mandatory, but often devices might request you to enter two IPv6 addresses.
+
+When you connect to them, AdGuard DNS will be able to determine which particular device is sending DNS requests and display statistics for it. And you'll be able to configure DNS rules specifically for this device.
+
+Unfortunately, not all service providers offer IPv6 support, and not all devices allow you to configure IPv6 addresses. If this is your case, you may have to rely on the Linked IP method.
+Linked IP
+
+If you connect your device to AdGuard DNS via Linked IP, the service will count all plain DNS requests coming from that IP address towards that "device". With this connection method, you would have to reconnect manually or through a special program each time the device's IP changes, which happens after each reboot.
+
+The only requirement for linking IP is that it must be a residential IP address.
+note
+
+A residential IP address is an IP address assigned to a device connected to a residential ISP. It is typically associated with a physical location and is allocated to individual homes or apartments. Residential IP addresses are used by regular Internet users for their everyday online activities, such as browsing the web, accessing social media platforms, sending emails, or streaming content.
+
+If you're trying to link a residential IP address and AdGuard DNS does not allow you to do that, please contact our support team at support@adguard-dns.io.
+Private AdGuard DNS features
+Statistics
+
+In the Statistics tab you can see all the summarized statistics on DNS queries made by devices connected to your Private AdGuard DNS. It shows the total number and geography of requests, the number of blocked requests, the list of companies the requests were addressed to, requests types and top requested domains.
+
+Private AdGuard DNS dashboard statistics
+Traffic destination
+
+This feature shows you where DNS requests sent by your devices go. On top of seeing the map of request destinations, you can filter the information by date, device and country.
+
+Private AdGuard DNS dashboard traffic
+Companies
+
+This tab allows you to quickly check which companies send the most requests, and which companies have the most blocked requests.
+
+Private AdGuard DNS dashboard companies
+Query log
+
+This is a detailed log where you can check out the information on every single request and also sort requests by status, type, company, device, time, country.
+
+Private AdGuard DNS dashboard query log
+Server settings
+
+This section features a range of settings allowing you to customize the operation of private AdGuard DNS, ensuring the Internet functions exactly as you desire.
+Blocklists management
+
+The Blocklists feature allows you to specify which domains you want to block and which you don't. Choose from a variety of blocklists for different purposes.
+
+Private AdGuard DNS dashboard blocklists
+Security settings
+
+Even if you're aware of all the tricks online scammers use, there's always a risk you'll accidentally click a malicious link. To protect yourself from such accidents, go to the Security settings section and check the boxes next to the options listed there.
+
+The Block malicious, phishing, and scam domains feature will block domains found in the dedicated database. And the Block newly registered domains will block all domains registered less than 30 days ago, which are often considered risky for your online privacy.
+Parental control
+
+To protect your child from online content you deem inappropriate, set up and activate the Parental control option. In addition to options such as "adult content" blocking and safe search, we've added the ability to manually specify domains for blocking and set a schedule for the Parental control to work accordingly.
+
+Parental control
+User rules
+
+For cases where pre-installed blocklists with thousands of rules are not enough, we have a handy feature called User rules. Here you can manually add custom rules to block/unblock a specific domain or import custom rule lists (see DNS filtering rules syntax). You can export the lists.
+
+Private AdGuard DNS dashboard user rules
+DNS-over-HTTPS with authentication
+
+DNS-over-HTTPS with authentication provides a login and password to connect to the server. This can limit access to unauthorized users and increase security.
+
+To enable this feature, go to Server settings → Devices → Settings and change the DNS server to the one with authentication. Select Deny other protocols to disable alternative protocol usage, ensuring exclusive DNS-over-HTTPS authentication and blocking third-party access.
+
+DNS-over-HTTPS with authentication
+Advanced
+
+Here you can set the way AdGuard DNS must respond to blocked domains:
+
+    Default — zero IP address
+    NXDOMAIN — the domain does not exist
+    REFUSED — the server has refused to process the request
+    Custom IP — you can manually specify an IP address
+
+Additionally, you can adjust the Time to live (TTL) setting. This parameter defines the time period (in seconds) that a client device caches the response to a DNS request. A higher TTL means that even if a previously blocked domain is unblocked, it may still appear as blocked for a while. A TTL of 0 indicates that the device does not cache responses.
+
+In the Advanced section, there are three options that can be customized:
+
+    Block access to iCloud Private Relay. Devices that use iCloud Private Relay may ignore DNS settings. Enabling this option ensures that AdGuard DNS can effectively protect your device.
+    Block Firefox canary domain. This setting prevents Firefox from automatically switching to its DoH resolver when AdGuard DNS is set as the system-wide DNS service.
+    Log IP addresses. If this option is enabled, IP addresses associated with incoming DNS requests will be recorded and displayed in the Query log.
+
+Access settings
+
+Here you can manage an access to your DNS server by configuring the following settings:
+
+    Allowed clients. Specify which clients are permitted to use your DNS server. Please note that allowed clients are not counted in added access rules, only disallowed clients and domains
+
+Added rules
+
+    Disallowed clients. List clients that are denied to use your DNS server
+    Disallowed domains. Specify domain names that will be denied access to your DNS server. Wildcards and DNS filtering rules can also be listed here
+
+note
+
+If you only want to use DNS on certain AS numbers or IP addresses, you should block everything else in the Disallowed clients field. Simply allowing only the necessary numbers and addresses in the Allowed clients field won’t be enough.
+
+By setting up these options, you can control who uses your DNS server and prevent potential DDoS attacks. Requests that are not allowed will not appear in your Query log, and they are free of charge.
+
+Overview
+
+AdGuard DNS provides a REST API you can use to integrate your apps with it.
+Authentication
+Generate Access token
+
+Make a POST request for the following URL with the given params to generate the access_token:
+
+https://api.adguard-dns.io/oapi/v1/oauth_token
+Parameter	Description
+username	Account email
+password	Account password
+mfa_token	Two-Factor authentication token (if enabled in account settings)
+
+In the response, you will get both access_token and refresh_token.
+
+    The access_token will expire after some specified seconds (represented by the expires_in param in the response). You can regenerate a new access_token using the refresh_token (Refer: Generate Access Token from Refresh Token).
+
+    The refresh_token is permanent. To revoke a refresh_token, refer: Revoking a Refresh Token.
+
+Example request
+
+$ curl 'https://api.adguard-dns.io/oapi/v1/oauth_token' -i -X POST \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d 'username=user%40adguard.com' \
+    -d 'password=********' \
+    -d 'mfa_token=727810'
+
+Example response
+
+{
+  "access_token": "jTFho_aymtN20pZR5RRSQAzd81I",
+  "token_type": "bearer",
+  "refresh_token": "H3SW6YFJ-tOPe0FQCM1Jd6VnMiA",
+  "expires_in": 2620978
+}
+
+Generate Access Token from Refresh Token
+
+Access tokens have limited validity. Once it expires, your app will have to use the refresh token to request for a new access token.
+
+Make the following POST request with the given params to get a new access token:
+
+https://api.adguard-dns.io/oapi/v1/oauth_token
+Parameter	Description
+refresh_token	REFRESH TOKEN using which a new access token has to be generated.
+Example request
+
+$ curl 'https://api.adguard-dns.io/oapi/v1/oauth_token' -i -X POST \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d 'refresh_token=H3SW6YFJ-tOPe0FQCM1Jd6VnMiA'
+
+Example response
+
+{
+  "access_token": "xQnT7GYT6Ag--3oY_EcOOdXe-I0",
+  "token_type": "bearer",
+  "refresh_token": "H3SW6YFJ-tOPe0FQCM1Jd6VnMiA",
+  "expires_in": 2627999
+}
+
+Revoking a Refresh Token
+
+To revoke a refresh token, make the following POST request with the given params:
+
+https://api.adguard-dns.io/oapi/v1/revoke_token
+Request Example
+
+$ curl 'https://api.adguard-dns.io/oapi/v1/revoke_token' -i -X POST \
+    -d 'token=H3SW6YFJ-tOPe0FQCM1Jd6VnMiA'
+
+Parameter	Description
+refresh_token	REFRESH TOKEN which is to be revoked
+Authorization endpoint
+
+    To access this endpoint, you need to contact us at devteam@adguard.com. Please describe the reason and use cases for this endpoint, as well as provide the redirect URI. Upon approval, you will receive a unique client identifier, which should be used for the client_id parameter.
+
+The /oapi/v1/oauth_authorize endpoint is used to interact with the resource owner and get the authorization to access the protected resource.
+
+The service redirects you to AdGuard to authenticate (if you are not already logged in) and then back to your application.
+
+The request parameters of the /oapi/v1/oauth_authorize endpoint are:
+Parameter	Description
+response_type	Tells the authorization server which grant to execute
+client_id	The ID of the OAuth client that asks for authorization
+redirect_uri	Contains a URL. A successful response from this endpoint results in a redirect to this URL
+state	An opaque value used for security purposes. If this request parameter is set in the request, it is returned to the application as part of the redirect_uri
+aid	Affiliate identifier
+
+For example:
+
+https://api.adguard-dns.io/oapi/v1/oauth_authorize?response_type=token&client_id=CLIENT_ID&redirect_uri=REDIRECT_URI&state=1jbmuc0m9WTr1T6dOO82
+
+To inform the authorization server which grant type to use, the response_type request parameter is used as follows:
+
+    For the Implicit grant, use response_type=token to include an access token.
+
+A successful response is 302 Found, which triggers a redirect to redirect_uri (which is a request parameter). The response parameters are embedded in the fragment component (the part after #) of the redirect_uri parameter in the Location header.
+
+For example:
+
+HTTP/1.1 302 Found
+Location: REDIRECT_URI#access_token=...&token_type=Bearer&expires_in=3600&state=1jbmuc0m9WTr1T6dOO82
+
+Accessing API
+
+Once the access and the refresh tokens are generated, API calls can be made by passing the access token in the header.
+
+    Header name should be Authorization
+    Header value should be Bearer {access_token}
+
+API
+Reference
+
+Please see the methods reference here.
+OpenAPI spec
+
+OpenAPI specification is available at https://api.adguard-dns.io/static/swagger/openapi.json.
+
+You can use different tools to view the list of available API methods. For instance, you can open this file in https://editor.swagger.io/.
+Changelog
+
+The complete AdGuard DNS API changelog is available on this page.
+Feedback
+If you would like this API to be extended with new methods, please email us to devteam@adguard.com and let us know what you would like to be added.
+
+Reference
+
+This article contains documentation for AdGuard DNS API. For the complete AdGuard DNS API changelog, visit this page.
+Current version: 1.9
+/oapi/v1/account/limits
+GET
+Summary
+
+Gets account limits
+Responses
+Code	Description
+200	Account limits info
+/oapi/v1/dedicated_addresses/ipv4
+GET
+Summary
+
+Lists dedicated IPv4 addresses
+Responses
+Code	Description
+200	List of dedicated IPv4 addresses
+POST
+Summary
+
+Allocates new IPv4
+Responses
+Code	Description
+200	New IPv4 successfully allocated
+429	Dedicated IPv4 count reached the limit
+/oapi/v1/devices
+GET
+Summary
+
+Lists devices
+Responses
+Code	Description
+200	List of devices
+POST
+Summary
+
+Creates a new device
+Responses
+Code	Description
+200	Device created
+400	Validation failed
+429	Devices count reached the limit
+/oapi/v1/devices/{device_id}
+DELETE
+Summary
+
+Removes a device
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+Responses
+Code	Description
+200	Device deleted
+404	Device not found
+GET
+Summary
+
+Gets an existing device by ID
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+Responses
+Code	Description
+200	Device info
+404	Device not found
+PUT
+Summary
+
+Updates an existing device
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+Responses
+Code	Description
+200	Device updated
+400	Validation failed
+404	Device not found
+/oapi/v1/devices/{device_id}/dedicated_addresses
+GET
+Summary
+
+List dedicated IPv4 and IPv6 addresses for a device
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+Responses
+Code	Description
+200	Dedicated IPv4 and IPv6
+/oapi/v1/devices/{device_id}/dedicated_addresses/ipv4
+DELETE
+Summary
+
+Unlink dedicated IPv4 from the device
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+Responses
+Code	Description
+200	Dedicated IPv4 successfully unlinked from the device
+404	Device or address not found
+POST
+Summary
+
+Link dedicated IPv4 to the device
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+Responses
+Code	Description
+200	Dedicated IPv4 successfully linked to the device
+400	Validation failed
+404	Device or address not found
+429	Linked dedicated IPv4 count reached the limit
+/oapi/v1/devices/{device_id}/doh.mobileconfig
+GET
+Summary
+
+Gets DNS-over-HTTPS .mobileconfig file.
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+exclude_wifi_networks	query	List Wi-Fi networks by their SSID in which you want AdGuard DNS to be disabled	No	[ string ]
+exclude_domain	query	List domains that will use default DNS servers instead of AdGuard DNS	No	[ string ]
+Responses
+Code	Description
+200	DNS-over-HTTPS .plist file
+404	Device not found
+/oapi/v1/devices/{device_id}/doh_password/reset
+PUT
+Summary
+
+Generate and set new DNS-over-HTTPS password
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+Responses
+Code	Description
+200	DNS-over-HTTPS password successfully reset
+404	Device not found
+/oapi/v1/devices/{device_id}/dot.mobileconfig
+GET
+Summary
+
+Gets DNS-over-TLS .mobileconfig file.
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+exclude_wifi_networks	query	List Wi-Fi networks by their SSID in which you want AdGuard DNS to be disabled	No	[ string ]
+exclude_domain	query	List domains that will use default DNS servers instead of AdGuard DNS	No	[ string ]
+Responses
+Code	Description
+200	DNS-over-HTTPS .plist file
+404	Device not found
+/oapi/v1/devices/{device_id}/settings
+PUT
+Summary
+
+Updates device settings
+Parameters
+Name	Located in	Description	Required	Schema
+device_id	path		Yes	string
+Responses
+Code	Description
+200	Device settings updated
+400	Validation failed
+404	Device not found
+/oapi/v1/dns_servers
+GET
+Summary
+
+Lists DNS servers that belong to the user.
+Description
+
+Lists DNS servers that belong to the user. By default there is at least one default server.
+Responses
+Code	Description
+200	List of DNS servers
+POST
+Summary
+
+Creates a new DNS server
+Description
+
+Creates a new DNS server. You can attach custom settings, otherwise DNS server will be created with default settings.
+Responses
+Code	Description
+200	DNS server created
+400	Validation failed
+429	DNS servers count reached the limit
+/oapi/v1/dns_servers/{dns_server_id}
+DELETE
+Summary
+
+Removes a DNS server
+Description
+
+Removes a DNS server. All devices attached to this DNS server will be moved to the default DNS server. Deleting the default DNS server is forbidden.
+Parameters
+Name	Located in	Description	Required	Schema
+dns_server_id	path		Yes	string
+Responses
+Code	Description
+200	DNS server deleted
+404	DNS server not found
+GET
+Summary
+
+Gets an existing DNS server by ID
+Parameters
+Name	Located in	Description	Required	Schema
+dns_server_id	path		Yes	string
+Responses
+Code	Description
+200	DNS server info
+404	DNS server not found
+PUT
+Summary
+
+Updates an existing DNS server
+Parameters
+Name	Located in	Description	Required	Schema
+dns_server_id	path		Yes	string
+Responses
+Code	Description
+200	DNS server updated
+400	Validation failed
+404	DNS server not found
+/oapi/v1/dns_servers/{dns_server_id}/settings
+PUT
+Summary
+
+Updates DNS server settings
+Parameters
+Name	Located in	Description	Required	Schema
+dns_server_id	path		Yes	string
+Responses
+Code	Description
+200	DNS server settings updated
+400	Validation failed
+404	DNS server not found
+/oapi/v1/filter_lists
+GET
+Summary
+
+Gets filter lists
+Responses
+Code	Description
+200	List of filters
+/oapi/v1/oauth_token
+POST
+Summary
+
+Generates Access and Refresh token
+Responses
+Code	Description
+200	Access token issued
+400	Missing required parameters
+401	Invalid credentials, MFA token or refresh token provided
+
+null
+/oapi/v1/query_log
+DELETE
+Summary
+
+Clears query log
+Responses
+Code	Description
+202	Query log was cleared
+GET
+Summary
+
+Gets query log
+Parameters
+Name	Located in	Description	Required	Schema
+time_from_millis	query	Time from in milliseconds (inclusive)	Yes	long
+time_to_millis	query	Time to in milliseconds (inclusive)	Yes	long
+devices	query	Filter by devices	No	[ string ]
+countries	query	Filter by countries	No	[ string ]
+companies	query	Filter by companies	No	[ string ]
+statuses	query	Filter by statuses	No	[ FilteringActionStatus ]
+categories	query	Filter by categories	No	[ CategoryType ]
+search	query	Filter by domain name	No	string
+limit	query	Limit the number of records to be returned	No	integer
+cursor	query	Pagination cursor. Use cursor from response to paginate through the pages.	No	string
+Responses
+Code	Description
+200	Query log
+/oapi/v1/revoke_token
+POST
+Summary
+
+Revokes a Refresh Token
+Parameters
+Name	Located in	Description	Required	Schema
+refresh_token	query	Refresh Token	Yes	string
+Responses
+Code	Description
+200	Refresh token revoked
+
+null
+/oapi/v1/stats/categories
+GET
+Summary
+
+Gets categories statistics
+Parameters
+Name	Located in	Description	Required	Schema
+time_from_millis	query	Time from in milliseconds (inclusive)	Yes	long
+time_to_millis	query	Time to in milliseconds (inclusive)	Yes	long
+devices	query	Filter by devices	No	[ string ]
+countries	query	Filter by countries	No	[ string ]
+Responses
+Code	Description
+200	Categories statistics received
+400	Validation failed
+/oapi/v1/stats/companies
+GET
+Summary
+
+Gets companies statistics
+Parameters
+Name	Located in	Description	Required	Schema
+time_from_millis	query	Time from in milliseconds (inclusive)	Yes	long
+time_to_millis	query	Time to in milliseconds (inclusive)	Yes	long
+devices	query	Filter by devices	No	[ string ]
+countries	query	Filter by countries	No	[ string ]
+Responses
+Code	Description
+200	Companies statistics received
+400	Validation failed
+/oapi/v1/stats/companies/detailed
+GET
+Summary
+
+Gets detailed companies statistics
+Parameters
+Name	Located in	Description	Required	Schema
+time_from_millis	query	Time from in milliseconds (inclusive)	Yes	long
+time_to_millis	query	Time to in milliseconds (inclusive)	Yes	long
+devices	query	Filter by devices	No	[ string ]
+countries	query	Filter by countries	No	[ string ]
+cursor	query	Pagination cursor	No	string
+Responses
+Code	Description
+200	Detailed companies statistics received
+400	Validation failed
+/oapi/v1/stats/countries
+GET
+Summary
+
+Gets countries statistics
+Parameters
+Name	Located in	Description	Required	Schema
+time_from_millis	query	Time from in milliseconds (inclusive)	Yes	long
+time_to_millis	query	Time to in milliseconds (inclusive)	Yes	long
+devices	query	Filter by devices	No	[ string ]
+countries	query	Filter by countries	No	[ string ]
+Responses
+Code	Description
+200	Countries statistics received
+400	Validation failed
+/oapi/v1/stats/devices
+GET
+Summary
+
+Gets devices statistics
+Parameters
+Name	Located in	Description	Required	Schema
+time_from_millis	query	Time from in milliseconds (inclusive)	Yes	long
+time_to_millis	query	Time to in milliseconds (inclusive)	Yes	long
+devices	query	Filter by devices	No	[ string ]
+countries	query	Filter by countries	No	[ string ]
+Responses
+Code	Description
+200	Devices statistics received
+400	Validation failed
+/oapi/v1/stats/domains
+GET
+Summary
+
+Gets domains statistics
+Parameters
+Name	Located in	Description	Required	Schema
+time_from_millis	query	Time from in milliseconds (inclusive)	Yes	long
+time_to_millis	query	Time to in milliseconds (inclusive)	Yes	long
+devices	query	Filter by devices	No	[ string ]
+countries	query	Filter by countries	No	[ string ]
+Responses
+Code	Description
+200	Domains statistics received
+400	Validation failed
+/oapi/v1/stats/time
+GET
+Summary
+
+Gets time statistics
+Parameters
+Name	Located in	Description	Required	Schema
+time_from_millis	query	Time from in milliseconds (inclusive)	Yes	long
+time_to_millis	query	Time to in milliseconds (inclusive)	Yes	long
+devices	query	Filter by devices	No	[ string ]
+countries	query	Filter by countries	No	[ string ]
+Responses
+Code	Description
+200	Time statistics received
+400	Validation failed
+/oapi/v1/web_services
+GET
+Summary
+
+Lists web services
+Responses
+Code	Description
+200	List of web-services
+
+Changelog
+
+This article contains the changelog for AdGuard DNS API.
+v1.9
+
+Released on July 11, 2024
+
+    Added automatic device connection functionality:
+        New DNS server setting — auto_connect_devices_enabled, allowing approval for auto-connecting devices through a specific link type
+        New field in Device — auto_device, indicating that the device is automatically connected
+    Replaced int with long for queries in CategoryQueriesStats, for used in AccountLimits, and for blocked and queries in QueriesStats
+
+v1.8
+
+Released on April 20, 2024
+
+    Added support for DNS-over-HTTPS with authentication:
+        New operation — reset DNS-over-HTTPS password for device
+        New device setting — detect_doh_auth_only. Disables all DNS connection methods except DNS-over-HTTPS with authentication
+        New field in DeviceDNSAddresses — dns_over_https_with_auth_url. Indicates the URL to use when connecting using DNS-over-HTTPS with authentication
+
+v1.7
+
+Released on March 11, 2024
+
+    Added dedicated IPv4 addresses functionality:
+        Dedicated IPv4 addresses can now be used on devices for DNS server configuration
+        Dedicated IPv4 address is now associated with the device it is linked to, so that queries made to this address are logged for that device
+    Added new operations:
+        List all available dedicated IPv4 addresses
+        Allocate new dedicated IPv4 address
+        Link an available IPv4 address to a device
+        Unlink an IPv4 address from a device
+        Request info on dedicated addresses associated with a device
+    Added new limits to Account limits:
+        dedicated_ipv4 provides information about the amount of already allocated dedicated IPv4 addresses, as well as the limit on them
+    Removed deprecated field of DNSServerSettings:
+        safebrowsing_enabled
+
+v1.6
+
+Released on January 22, 2024
+
+    Added new Access settings section for DNS profiles (access_settings). By customizing these fields, you’ll be able to protect your AdGuard DNS server from unauthorized access:
+        allowed_clients — here you can specify which clients can use your DNS server. This field will have priority over the blocked_clients field
+        blocked_clients — here you can specify which clients are not allowed to use your DNS server
+        blocked_domain_rules — here you can specify which domains are not allowed to access your DNS server, as well as define such domains with wildcard and DNS filtering rules
+
+    Added new limits to Account limits:
+        access_rules provides the sum of currently used blocked_clients and blocked_domain_rules values, as well as the limit on access rules
+        user_rules shows the amount of created user rules, as well as the limit on them
+
+    Added a new ip_log_enabled setting to log client IP addresses and domains
+
+    Added new error code FIELD_REACHED_LIMIT to indicate when limits have been reached:
+        For the total number of blocked_clients and blocked_domain_rules in access settings
+        For rules in custom user rules settings
+
+v1.5
+
+Released on June 16, 2023
+
+    Added a new block_nrd setting and grouped all security-related settings in one place
+
+Model for safebrowsing settings changed
+
+From:
+
+{
+   "enabled": true
+}
+
+To:
+
+{
+   "enabled": true,
+   "block_dangerous_domains": true,
+   "block_nrd": false
+}
+
+where enabled now controls all settings in the group, block_dangerous_domains is the previous enabled model field, and block_nrd is a setting that blocks newly registered domains.
+Model for saving server settings changed
+
+From:
+
+{
+  "protection_enabled" : true,
+  "safebrowsing_enabled" : true,
+  ..
+}
+
+to:
+
+{
+  "protection_enabled" : true,
+  "safebrowsing_settings" : {
+     "enabled": true,
+     "block_dangerous_domains": true,
+     "block_nrd": false
+  }
+  ..
+}
+
+here a new field safebrowsing_settings is used instead of the deprecated safebrowsing_enabled, whose value is stored in block_dangerous_domains.
+v1.4
+
+Released on March 29, 2023
+
+    Added configurable option for blocking response: default (0.0.0.0), REFUSED, NXDOMAIN or custom IP address
+
+v1.3
+
+Released on December 13, 2022
+
+    Added method to get account limits
+
+v1.2
+
+Released on October 14, 2022
+
+    Added new protocol types DNS and DNSCRYPT. Deprecating the PLAIN_TCP, PLAIN_UDP, DNSCRYPT_TCP and DNSCRYPT_UDP that will be removed later
+
+v1.1
+
+Released on July 7, 2022
+
+    Added methods to retrieve statistics by time, domains, companies and devices
+    Added method for updating device settings
+    Fixed required fields definition
+
+v1.0
+
+Released on February 22, 2022
+
+    Added authentication
+    CRUD operations with devices and DNS servers
+    Query log
+    Downloading DoH and DoT .mobileconfig
+    Filter lists and web services
+
+Known issues
+
+After setting up AdGuard DNS, some users may find that it doesn’t work properly: they see a message that their device is not connected to AdGuard DNS and the requests from that device are not displayed in the Query log. This can happen because of certain hidden settings in your browser or operating system. Let’s look at several common issues and their solutions.
+tip
+
+You can check the status of AdGuard DNS on the test page.
+Chrome’s secure DNS settings
+
+If you’re using Chrome and you don’t see any requests in your AdGuard DNS dashboard, this may be because Chrome uses its own DNS server. Here’s how you can disable it:
+
+    Open Chrome’s settings.
+    Navigate to Privacy and security.
+    Select Security.
+    Scroll down to Use secure DNS.
+    Disable the feature.
+
+Chrome’s Use secure DNS feature
+
+If you disable Chrome’s own DNS settings, the browser will use the DNS specified in your operating system, which should be AdGuard DNS if you've set it up correctly.
+iCloud Private Relay (Safari, macOS, and iOS)
+
+If you enable iCloud Private Relay in your device settings, Safari will use Apple’s DNS addresses, which will override the AdGuard DNS settings.
+
+Here’s how you can disable iCloud Private Relay on your iPhone:
+
+    Open Settings and tap your name.
+    Select iCloud → Private Relay.
+    Turn off Private Relay.
+
+iOS Private Relay
+
+On your Mac:
+
+    Open System Settings and click your name or Apple ID.
+    Select iCloud → Private Relay.
+    Turn off Private Relay.
+    Click Done.
+
+macOS Private Relay
+Advanced Tracking and Fingerprinting Protection (Safari, starting from iOS 17)
+
+After the iOS 17 update, Advanced Tracking and Fingerprinting Protection may be enabled in Safari settings, which could potentially have a similar effect to iCloud Private Relay bypassing AdGuard DNS settings.
+
+Here’s how you can disable Advanced Tracking and Fingerprinting Protection:
+
+    Open Settings and scroll down to Safari.
+    Tap Advanced.
+    Disable Advanced Tracking and Fingerprinting Protection.
+
+Using alongside iCloud Private Relay
+
+When you're using iCloud Private Relay, the AdGuard DNS dashboard (and associated AdGuard test page) will show that you are not using AdGuard DNS on that device.
+
+Device is not connected
+
+To fix this problem, you need to allow AdGuard websites see your IP address in your device's settings.
+
+    On iPhone or iPad:
+
+        Go to adguard-dns.io
+
+        Tap the Page Settings button, then tap Show IP Address
+
+        iCloud Private Relay settings *mobile
+
+        Repeat for adguard.com
+
+    On Mac:
+
+        Go to adguard-dns.io
+
+        In Safari, choose View → Reload and Show IP Address
+
+        Repeat for adguard.com
+
+If you can't see the option to temporarily allow a website to see your IP address, update your device to the latest version of iOS, iPadOS, or macOS, then try again.
+
+Now your device should be displayed correctly in the AdGuard DNS dashboard:
+
+Device is connected
+
+Mind that once you turn off Private Relay for a specific website, your network provider will also be able to see which site you're browsing.
+
+How to remove a DNS profile
+
+If you need to disconnect your iPhone, iPad, or Mac with a configured DNS profile from your DNS server, you need to remove that DNS profile. Here's how to do it.
+
+On your Mac:
+
+    Open System Settings.
+
+    Click Privacy & Security.
+
+    Scroll down to Profiles.
+
+    Profiles
+
+    Select a profile and click –.
+
+    Deleting a profile
+
+    Confirm the removal.
+
+    Confirmation
+
+On your iOS device:
+
+    Open Settings.
+
+    Select General.
+
+    General settings *mobile
+
+    Scroll down to VPN & Device Management.
+
+    VPN & Device Management *mobile
+
+    Select the desired profile and tap Remove Profile.
+
+    Profile *mobile
+
+    Deleting a profile *mobile
+
+    Enter your device password to confirm the removal.
+

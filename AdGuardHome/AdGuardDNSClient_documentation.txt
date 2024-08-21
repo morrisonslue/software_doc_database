@@ -1,0 +1,380 @@
+Overview
+What is AdGuard DNS Client?
+
+A cross-platform lightweight DNS client for AdGuard DNS. It operates as a DNS server that forwards DNS requests to the corresponding upstream resolvers.
+Quick start
+caution
+
+AdGuard DNS Client is still in the Beta stage. It may be unstable.
+
+Supported operating systems:
+
+    Linux
+    macOS
+    Windows
+
+Supported CPU architectures:
+
+    64-bit ARM
+    AMD64
+    i386
+
+Getting started
+Unix-like operating systems
+
+Download and unpack the .tar.gz or .zip archive from the releases page.
+caution
+
+On macOS, it's crucial that globally installed daemons are owned by root (see the launchd documentation), so the AdGuardDNSClient executable must be placed in the /Applications/ directory or its subdirectory.
+
+Install it as a service by running:
+
+./AdGuardDNSClient -s install -v
+
+Edit the configuration file config.yaml.
+
+Start the service:
+
+./AdGuardDNSClient -s start -v
+
+To check that it works, use any DNS checking utility. For example, using nslookup:
+
+nslookup -debug 'www.example.com' '127.0.0.1'
+
+Windows
+
+Just download and install using the MSI installer from the releases page.
+
+To check that it works, use any DNS checking utility. For example, using nslookup.exe:
+
+nslookup -debug "www.example.com" "127.0.0.1"
+
+Command-line options
+
+Each option overrides the corresponding value provided by the configuration file and the environment.
+Help
+
+Option -h makes AdGuard DNS Client print out a help message to standard output and exit with a success status-code.
+Service
+
+Option -s <value> specifies the OS service action. Possible values are:
+
+    install: installs AdGuard DNS Client as a service
+    restart: restarts the running AdGuard DNS Client service
+    start: starts the installed AdGuard DNS Client service
+    status: shows the status of the installed AdGuard DNS Client service
+    stop: stops the running AdGuard DNS Client
+    uninstall: uninstalls AdGuard DNS Client service
+
+Verbose
+
+Option -v enables the verbose log output.
+Version
+
+Option --version makes AdGuard DNS Client print out the version of the AdGuardDNSClient executable to standard output and exit with a success status-code.
+Configuration
+File
+
+The YAML configuration file is described in its own article, and there is also a sample configuration file config.dist.yaml. Some configuration parameters can also be overridden using the environment.
+Exit codes
+
+There are a few different exit codes that may appear under different error conditions:
+
+    0: Successfully finished and exited, no errors.
+
+    1: Internal error, most likely a misconfiguration.
+
+    2: Bad command-line argument or value.
+
+Configuration file
+
+See file config.dist.yml for a full example of a YAML configuration file with comments.
+dns
+
+The dns object configures the behavior of the DNS server. It has the following properties:
+cache
+
+The cache object configures caching the results of querying DNS. It has the following properties:
+
+    enabled: Whether or not the DNS results should be cached.
+
+    Example: true
+
+    size: The maximum size of the DNS result cache as human-readable data size. It must be greater than zero if enabled is true.
+
+    Example: 128 MB
+
+    client_size: The maximum size of the DNS result cache for each configured client’s address or subnetwork as human-readable data size. It must be greater than zero if enabled is true.
+
+    Example: 4 MB
+
+server
+
+The server object configures the handling of incoming requests. It has the following properties:
+
+    listen_addresses: The set of addresses with ports to listen on.
+
+    Property example:
+
+    'listen_addresses':
+        - address: '127.0.0.1:53'
+        - address: '[::1]:53'
+
+bootstrap
+
+The bootstrap object configures the resolution of upstream server addresses. It has the following properties:
+
+    servers: The list of servers to resolve the hostnames of upstream servers.
+
+    Property example:
+
+    'servers':
+        - address: '8.8.8.8:53'
+        - address: '192.168.1.1:53'
+
+    timeout: The timeout for bootstrap DNS requests as a human-readable duration.
+
+    Example: 2 s
+
+upstream
+
+The upstream object configures the actual resolving of requests. It has the following properties:
+
+    groups: The set of upstream servers keyed by the group’s name. It has the following fields:
+
+        address: The upstream server’s address.
+
+        Example: '8.8.8.8:53'
+
+        match: The list of criteria to match the request against. Each entry may contain the following properties:
+
+            question_domain: The domain or a suffix of the domain that the set of upstream servers should be used to resolve.
+
+            Example: 'mycompany.local'
+
+            client: The client’s address or a subnet of the client’s address from which the set of upstream servers should resolve requests. It must have no significant bits outside the subnet mask.
+
+            Example: '192.0.2.0/24'
+
+note
+
+Properties specified within a single entry are combined with a logical AND. Entries are combined with a logical OR.
+
+Property example:
+
+'match':
+    - question_domain: 'mycompany.local'
+    client: '192.168.1.0/24'
+    - question_domain: 'mycompany.external'
+    - client: '1.2.3.4'
+
+    info
+
+    groups should contain at least a single entry named default, and optionally a single entry named private, both should have no match property.
+
+    The default group will be used when there are no matches among other groups. The private group will be used to resolve the PTR requests for the private IP addresses. Such queries will be answered with NXDOMAIN if no private group is defined.
+
+    timeout: The timeout for upstream DNS requests as a human-readable duration.
+
+    Example: 2s
+
+fallback
+
+The fallback object configures the behavior of the DNS server in case of failure. It has the following properties:
+
+    servers: The list of servers to use after the actual upstream failed to respond.
+
+    Property example:
+
+    'servers':
+        - address: 'tls://94.140.14.140'
+
+    timeout: The timeout for fallback DNS requests as a human-readable duration.
+
+    Example: 2s
+
+debug
+
+The debug object configures the debugging features. It has the following properties:
+pprof
+
+The pprof object configures the pprof HTTP handlers. It has the following properties:
+
+    port: The port to listen on for debug HTTP requests on localhost.
+
+    Example: 6060
+
+    enabled: Whether or not the debug profiling is enabled.
+
+    Example: true
+
+log
+
+The log object configures the logging. It has the following properties:
+
+    output: The output to which logs are written.
+
+note
+
+Log entries written to the system log are in text format (see below) and use the system timestamp.
+
+Possible values:
+
+    syslog means that the platform-specific system log is used, which is syslog for Linux and Event Log for Windows.
+
+    stdout for standard output stream.
+
+    stderr for standard error stream.
+
+    Absolute path to the log file.
+
+    Example: /home/user/logs
+
+    Example: C:\Users\user\logs.txt
+
+Example: syslog
+
+format: Specifies the format of the log entries.
+
+Possible values:
+
+    default: A simple format. Example:
+
+    INFO service started prefix=program addr=127.0.0.1:53
+
+json: A structured JSON format. Example:
+
+{"level":"INFO","msg":"service started","prefix":"program","addr":"127.0.0.1:53"}
+
+jsonhybrid: Same as json but with a limited number of fields. Example:
+
+{"level":"INFO","msg":"service started, attrs: prefix=program addr=127.0.0.1:53"}
+
+text: A structured text format. Example:
+
+level=INFO msg="service started" prefix=program addr=127.0.0.1:53
+
+Example: default
+
+timestamp: Specifies whether to include a timestamp in the log entries.
+
+Example: false
+
+verbose: Specifies whether the log should be more informative.
+
+Example: false
+
+Environment
+
+AdGuard DNS Client uses environment variables to store part of the configuration. The rest of the configuration is stored in the configuration file.
+LOG_OUTPUT
+
+The log destination, must be an absolute path to the file or one of the special values. See the logging configuration description in the article about the configuration file.
+
+This environment variable overrides the log.output field in the configuration file.
+
+Default: Unset.
+LOG_FORMAT
+
+The format for log entries. See the logging configuration description in the article about the configuration file.
+
+This environment variable overrides the log.format field in the configuration file.
+
+Default: Unset.
+LOG_TIMESTAMP
+
+When set to 1, log entries have a timestamp. When set to 0, log entries don’t have it.
+
+This environment variable overrides the log.timestamp field in the configuration file.
+
+Default: Unset.
+VERBOSE
+
+When set to 1, enable verbose logging. When set to 0, disable it.
+
+This environment variable overrides the log.verbose field in the configuration file.
+
+Default: Unset.
+
+How to create your own DNS stamp for Secure DNS
+
+This guide will show you how to create your own DNS stamp for Secure DNS. Secure DNS is a service that enhances your internet security and privacy by encrypting your DNS queries. This prevents your queries from being intercepted or manipulated by malicious actors.
+
+Secure DNS usually uses tls://, https://, or quic:// URLs. This is sufficient for most users and is the recommended way.
+
+However, if you need additional security, like pre-resolved server IPs and certificate pinning by hash, you may generate your own DNS stamp.
+Introduction to DNS stamps
+
+DNS stamps are short strings that contain all the information needed to connect to a secure DNS server. They simplify the process of setting up Secure DNS as the user does not need to manually enter all this data.
+
+DNS stamps allow you to customize Secure DNS settings beyond the usual URLs. In particular, they allow you to specify hard-coded server addresses, use certificate hashing, and so on. These features make DNS stamps a more robust and versatile option for configuring Secure DNS settings.
+Choosing the protocol
+
+Types of Secure DNS include DNS-over-HTTPS (DoH), DNS-over-QUIC (DoQ), DNS-over-TLS (DoT), and some others. Choosing one of these protocols depends on the context in which you'll be using them.
+Creating a DNS stamp
+
+Open the DNSCrypt Stamp Calculator.
+
+Depending on the chosen protocol, select the corresponding protocol from the dropdown menu (DoH, DoT, or DoQ).
+
+Fill in the necessary fields:
+
+    IP address: Enter the IP address of the DNS server. If you are using the DoT or DoQ protocol, make sure that you have specified the appropriate port as well.
+
+note
+
+This field is optional and should be used with caution: using this option may disrupt the Internet on IPv6-only networks.
+
+    Hashes: Enter the SHA256 digest of one of the TBS certificates found in the validation chain. If the DNS server you are using provides a ready-made hash, find and copy it. Otherwise, you can obtain it by following the instructions in the Obtaining the Certificate Hash section.
+
+    note
+
+    This field is optional
+
+        Host name: Enter the host name of the DNS server. This field is used for server name verification in DoT and DoQ protocols.
+
+        For DoH:
+            Path: Enter the path for performing DoH requests. This is usually "/dns-query", but your provider may provide a different path.
+
+        For DoT and DoQ:
+            There are usually no specific fields for these protocols in this tool. Just make sure the port specified in the resolver address is the correct port.
+
+        In the Properties section, you can check the relevant properties if they are known and applicable to your DNS server.
+
+    Your stamp will be automatically generated and you will see it in the Stamp field.
+
+Obtaining the certificate hash
+
+To fill in the Hashes of the server's certificate field, you can use the following command, replacing <IP_ADDRESS>, <PORT>, and <SERVER_NAME> with the corresponding values for your DNS server:
+
+echo | openssl s_client -connect <IP_ADDRESS>:<PORT> -servername <SERVER_NAME> 2>/dev/null | openssl x509 -outform der | openssl asn1parse -inform der -strparse 4 -noout -out - | openssl dgst -sha256
+
+caution
+
+The result of the hash command may change over time as the server's certificate is updated. Therefore, if your DNS stamp suddenly stops working, you may need to recalculate the hash of the certificate and generate a new stamp. Regularly updating your DNS stamp will help ensure the continued secure operation of your Secure DNS service.
+Using the DNS stamp
+
+You now have your own DNS stamp that you can use to set up Secure DNS. This stamp can be entered into AdGuard and AdGuard VPN for enhanced internet privacy and security.
+Example of creating a DNS stamp
+
+Let's go through an example of creating a stamp for AdGuard DNS using DoT:
+
+    Open the DNSCrypt Stamp Calculator.
+
+    Select the DNS-over-TLS (DoT) protocol.
+
+    Fill in the following fields:
+
+        IP address: Enter the IP address and port of the DNS server. In this case, it's 94.140.14.14:853.
+
+        Host name: Enter the host name of the DNS server. In this case, it's dns.adguard-dns.com.
+
+        Hashes: Execute the command
+
+    echo | openssl s_client -connect 94.140.14.14:853 -servername dns.adguard-dns.com 2>/dev/null | openssl x509 -outform der | openssl asn1parse -inform der -strparse 4 -noout -out - | openssl dgst -sha256
+
+The result is 1ebea9685d57a3063c427ac4f0983f34e73c129b06e7e7705640cacd40c371c8 Paste this SHA256 hash of the server's certificate into the field.
+
+Leave the Properties section blank.
+
+Your stamp will be automatically generated and you will see it in the Stamp field.
